@@ -8,6 +8,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginPages/>} />
+          <Route path="/signub" element={<SignupPages/>} />
           <Route path="/home-cajero" element={<SignupPages/>} />
           <Route path="/home-admin" element={<h1>HOME DEL ADMINISTRADOR</h1>} />
           <Route path="/registrar-venta" element={<h1>REGISTRAR VENTAS POR EL CAJERO</h1>} />
