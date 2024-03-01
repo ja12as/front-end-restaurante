@@ -1,3 +1,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* styles.css */
+
+/* Paleta de colores */
+:root {
+        --color-primary: #ffffff;
+        --color-secondary: #000000;
+        --color-third: #737373;
+        --color-decoration: #ffff6b;
+        --color-decoration-2: #5ad57f;
+}
+
+
+
+/* Tipografía */
+:root {
+    --font-title: 'Aileron Heavy', sans-serif;
+    --font-subtitle: 'Roboto Condensed', sans-serif;
+    --font-text: 'Aileron Regular', sans-serif;
+    }
+
+  /* Tamaños de tipografía */
+    :root {
+    --font-size-title: 24px;
+    --font-size-subtitle: 18px;
+    --font-size-text: 16px;
+    }
+
+/* Estilos globales */
+:root {
+    --image-size: 150px; /* Tamaño de las imágenes */
+}
+
+  /* Estilos para imágenes redondas */
+.rounded-image {
+    width: var(--image-size);
+    height: var(--image-size);
+    border-radius: 50%;
+    }
+
