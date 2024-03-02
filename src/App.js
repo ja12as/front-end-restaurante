@@ -3,6 +3,19 @@ import LoginPages from './pages/LoginPages';
 import SignupPages from './pages/SignupPages';
 import HomeAdministratorPage from './pages/HomeAdministratorPage';
 import HomeCashierPage from './pages/HomeCashierPage';
+import AccountsPage from './pages/AccountsPage';
+import EditAccountsPage from './pages/EditAccountsPage';
+import MenuPage from './pages/MenuPage';
+import EditMenuPage from './pages/EditMenuPage';
+import RealEstateInventoriesPage from './pages/RealEstateInventoriesPage';
+import EditPropertyInventoriesPage from './pages/EditPropertyInventoriesPage';
+import PaymentsPage from './pages/PaymentsPage';
+import PaymentHistoryPage from './pages/PaymentHistoryPage';
+import RegisterPaymentPage from './pages/RegisterPaymentPage';
+import SuppliersPage from './pages/SuppliersPage';
+import EditSuppliersPage from './pages/EditSuppliersPage';
+import SalesHistoryPage from './pages/SalesHistoryPage';
+import RegisterSalepage from './pages/RegisterSalepage';
 
 
 function App() {
@@ -14,17 +27,20 @@ function App() {
           <Route path="/signub" element={<SignupPages/>} />
           <Route path="/home-cajero" element={<HomeCashierPage/>} />
           <Route path="/home-admin" element={<HomeAdministratorPage/>} />
-          <Route path="/registrar-venta" element={<h1>REGISTRAR VENTAS POR EL CAJERO</h1>} />
-          <Route path="/historial-venta" element={<h1>HISTORIAL DE VENTAS</h1>} />
-          <Route path="/menu" element={<h1>MENU</h1>} />
-          <Route path="/menu/actualizar-menu" element={<h1>ACTUALIZAR MENU</h1>} />
-          <Route path="/provedores" element={<h1>PROVEEDORES</h1>} />
-          <Route path="/cuentas" element={<h1>CUENTAS DE LOS EMPLEADOS</h1>} />
+          <Route path="/registrar-venta" element={<RegisterSalepage/>} />
+          <Route path="/historial-venta" element={<SalesHistoryPage/>} />
+          <Route path="/menu" element={<MenuPage/>} />
+          <Route path="/menu/actualizar-menu" element={<EditMenuPage/>} />
+          <Route path="/provedores" element={<SuppliersPage/>} />
+          <Route path="/provedores/actualizar" element={<EditSuppliersPage/>} />
+          <Route path="/cuentas" element={<AccountsPage/>} />
+          <Route path="/cuentas/id" element={<EditAccountsPage/>} />
           <Route path="/dashboard" element={<h1>DASHBOARD</h1>} />
-          <Route path="/pagos" element={<h1>PAGOS A LOS EMPLEADOS</h1>} />
-          <Route path="/pagos/historial-pago" element={<h1>HISTORIAL DE PAGOS</h1>} />
-          <Route path="/pagos/realizar-pago" element={<h1>REALIZAR PAGOS</h1>} />
-          <Route path="/inventario" element={<h1>INVENTARIS</h1>} />
+          <Route path="/pagos" element={<PaymentsPage/>} />
+          <Route path="/pagos/historial-pago" element={<PaymentHistoryPage/>} />
+          <Route path="/pagos/realizar-pago" element={<RegisterPaymentPage/>} />
+          <Route path="/inventario" element={<RealEstateInventoriesPage/>} />
+          <Route path="/inventario/actualizar" element={<EditPropertyInventoriesPage/>} />
         </Routes>
       </BrowserRouter>
     </>
