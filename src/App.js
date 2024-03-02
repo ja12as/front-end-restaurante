@@ -1,6 +1,9 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import LoginPages from './pages/LoginPages';
 import SignupPages from './pages/SignupPages';
+import HomeAdministratorPage from './pages/HomeAdministratorPage';
+import HomeCashierPage from './pages/HomeCashierPage';
+
 
 function App() {
   return (
@@ -9,8 +12,8 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginPages/>} />
           <Route path="/signub" element={<SignupPages/>} />
-          <Route path="/home-cajero" element={<SignupPages/>} />
-          <Route path="/home-admin" element={<h1>HOME DEL ADMINISTRADOR</h1>} />
+          <Route path="/home-cajero" element={<HomeCashierPage/>} />
+          <Route path="/home-admin" element={<HomeAdministratorPage/>} />
           <Route path="/registrar-venta" element={<h1>REGISTRAR VENTAS POR EL CAJERO</h1>} />
           <Route path="/historial-venta" element={<h1>HISTORIAL DE VENTAS</h1>} />
           <Route path="/menu" element={<h1>MENU</h1>} />
