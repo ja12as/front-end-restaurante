@@ -1,3 +1,6 @@
-import axios from 'axios';
+import axios from "axios"
+const query = axios.create()
 
-const API = 'https://api.github.com/login';
+query.defaults.baseURL = "http://localhost:8080"
+
+export default query;

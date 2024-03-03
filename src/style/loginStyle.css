@@ -28,9 +28,11 @@
 }
 
 .logo {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px; /* ajusta el ancho según sea necesario */
+    height: 200px; /* ajusta la altura según sea necesario */
 }
 
 .login-form {
@@ -38,8 +40,8 @@
 }
 
 input[type="text"],
-input[type="password"],
-input[type="submit"] {
+input[type="password"]
+    {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -48,14 +50,29 @@ input[type="submit"] {
     box-sizing: border-box;
 }
 
-input[type="submit"] {
-    background-color: #007bff;
-    color: #fff;
+.boton {
+    width: 250px; /* Establece el ancho del botón a 350px */
+    height: 50px; /* Establece la altura del botón a 90px */
+    padding: 15px; /* Añade un padding de 15px al botón */
+    margin-left: 20%;
+    border-radius: 5px;
     border: none;
+    background-color: #00ff5e;
+    color: rgb(0, 0, 0);
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
+.boton:hover {
+    background-color: #b35f00;
+}
+
+
 input[type="submit"]:hover {
     background-color: #0056b3;
+}
+div .text{
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
 }

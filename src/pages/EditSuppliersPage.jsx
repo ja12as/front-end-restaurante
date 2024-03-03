@@ -10,7 +10,7 @@ Correo
 Editar, crear o desactivar proveedores */
 
 import {useForm} from 'react-hook-form'
-import '../style/SignupStyle.css';
+import '../style/RegisterStyle.css';
 
 
 function EditSuppliersPage() {
@@ -33,7 +33,7 @@ function EditSuppliersPage() {
                         </div>
                         <div className='form-group'>
                             <label>Correo</label>
-                            <input type="text" {...register("correo", { required: true })} placeholder="Correo@gmail.com" />
+                            <input type="email" {...register("correo", { required: true })} placeholder="Correo@gmail.com" />
                         </div>
                     </div>
                     <div className='div-col-2'>
@@ -51,8 +51,8 @@ function EditSuppliersPage() {
                         </div>
                     </div>
                     <div className="botones">
-                        <button type='submit' className='boton'>Salir</button>
-                        <button type='submit' className='boton'>Registrar</button>
+                        <button type='submit' className='boton 1'>Salir</button>
+                        <button type='submit' className='boton 2'>Registrar</button>
                     </div>
                 </form>
             </div>

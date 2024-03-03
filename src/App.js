@@ -1,6 +1,5 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import LoginPages from './pages/LoginPages';
-import SignupPages from './pages/SignupPages';
 import HomeAdministratorPage from './pages/HomeAdministratorPage';
 import HomeCashierPage from './pages/HomeCashierPage';
 import AccountsPage from './pages/AccountsPage';
@@ -16,6 +15,7 @@ import SuppliersPage from './pages/SuppliersPage';
 import EditSuppliersPage from './pages/EditSuppliersPage';
 import SalesHistoryPage from './pages/SalesHistoryPage';
 import RegisterSalepage from './pages/RegisterSalepage';
+import SecurityQuestionsPages from './pages/SecurityQuestionsPages';
 
 
 function App() {
@@ -24,7 +24,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginPages/>} />
-          <Route path="/signub" element={<SignupPages/>} />
           <Route path="/home-cajero" element={<HomeCashierPage/>} />
           <Route path="/home-admin" element={<HomeAdministratorPage/>} />
           <Route path="/registrar-venta" element={<RegisterSalepage/>} />
@@ -41,6 +40,7 @@ function App() {
           <Route path="/pagos/realizar-pago" element={<RegisterPaymentPage/>} />
           <Route path="/inventario" element={<RealEstateInventoriesPage/>} />
           <Route path="/inventario/actualizar" element={<EditPropertyInventoriesPage/>} />
+          <Route path="/pregunta" element={<SecurityQuestionsPages/>} />
         </Routes>
       </BrowserRouter>
     </>

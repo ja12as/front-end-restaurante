@@ -1,0 +1,92 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Esto centra el contenido verticalmente */
+}
+
+.wrapper {
+    padding: 40px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    width: 2500px; /* Ajusta el ancho del contenedor */
+    height: 500px;
+
+}
+
+.bg-white {
+    background-color: #fff;
+}
+
+.h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px; /* Añade un margen inferior */
+}
+
+.text-center {
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 30px; /* Aumenta el espacio entre los grupos de formulario */
+}
+
+.input-field {
+
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.DataTable th:first-child,
+.DataTable td:first-child {
+    border-left: 2px solid yellow; /* Añade un borde izquierdo amarillo */
+}
+
+.DataTable th,
+.DataTable td {
+    margin-bottom: 5px;
+    padding: 10px;
+}
+
+.DataTable th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.DataTable td {
+    text-align: center;
+}
+
+.btn {
+    display: inline-block; /* Hace que el enlace se comporte como un bloque */
+    width: 300px; /* Establece el ancho del enlace */
+    text-decoration: none; 
+    padding: 10px 20px;
+    background-color: #00ff1e;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #f3fb18;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+.my-3 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.Link {
+    display: inline-block; /* Hace que el enlace se comporte como un bloque */
+    width: 300px; /* Establece el ancho del enlace */
+    text-decoration: none; /* Elimina la subrayado predeterminado del enlace */
+}

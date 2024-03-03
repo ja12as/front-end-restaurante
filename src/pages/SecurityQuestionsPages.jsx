@@ -1,9 +1,19 @@
-import React from 'react'
+
+import { Link } from 'react-router-dom';
 
 function SecurityQuestionsPages() {
+
+    const history = Link();
+
+    const handleClick = () => {
+        history.push('/'); // Navegar de regreso a la página de inicio (Home)
+    };
+    
     return (
         <div>
-            hola este es la parte de hacerte preguntas y tu respondes
+            <h2>pregunta</h2>
+            <p>Esta es tu página de pregunta .</p>
+            <button onClick={handleClick}>Regresar a Login</button>
         </div>
     )
 }
