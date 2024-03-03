@@ -1,0 +1,78 @@
+.login-page {
+    width: 100%;
+    height: 100vh; /* El 100% de la altura de la ventana */
+    position: relative;
+}
+
+.bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajusta la imagen para cubrir toda la ventana */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Coloca la imagen de fondo detrás de los elementos del formulario */
+}
+
+.login-container {
+    position: absolute;
+    left: 25%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con transparencia */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 90%; /* Anchura máxima del contenedor */
+    width: 400px; /* Anchura del contenedor */
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px; /* ajusta el ancho según sea necesario */
+    height: 200px; /* ajusta la altura según sea necesario */
+}
+
+.login-form {
+    width: 100%; /* Ajusta el ancho del formulario al 100% del contenedor */
+}
+
+input[type="text"],
+input[type="password"]
+    {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.boton {
+    width: 250px; /* Establece el ancho del botón a 350px */
+    height: 50px; /* Establece la altura del botón a 90px */
+    padding: 15px; /* Añade un padding de 15px al botón */
+    margin-left: 20%;
+    border-radius: 5px;
+    border: none;
+    background-color: #00ff5e;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.boton:hover {
+    background-color: #b35f00;
+}
+
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+div .text{
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+}
