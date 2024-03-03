@@ -1,0 +1,103 @@
+.container {
+    padding-top: 5px;
+    background-color: white;
+}
+
+.main-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    padding-top: 60px;
+}
+
+.perfil-empleado img {
+    max-width: 70px; /* Ajusta el ancho máximo de la imagen */
+    max-height: 50px;
+    margin-right: 10px; /* Ajusta la separación entre la imagen y el texto */
+    border: 3px solid black;
+}
+
+.perfil-empleado p {
+    text-align: right;
+    margin: 0; /* Elimina el margen predeterminado del párrafo */
+    white-space: nowrap; /* Evita el salto de línea del texto */
+    font-weight: bold; 
+    font-size: 20px;
+}
+
+.perfil-empleado {
+    display: flex;
+    align-items: center;
+}
+.img-medio-cajero img {
+    padding-right: 50px;
+    padding-left: 40px;
+    text-align: center;
+}
+
+.img-medio-cajero p {
+    text-align: center;
+    text-decoration: overline 3px #5ad57f;
+}
+.main-content-adm {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Para centrar el contenido horizontalmente */
+    text-align: center; /* Para centrar el contenido verticalmente */
+}
+
+.main-content-adm img {
+    max-width: 25%; /* Ajusta el ancho máximo según tus preferencias */
+     /* Ajusta la altura máxima según tus preferencias */
+    padding-top: 60px;
+    text-align: center;
+}
+.img-medio-admin1,
+p {
+    max-width: 256px;
+    text-align: center;
+}
+
+.main-content-adm p {
+    text-align: center;
+    text-decoration: overline 3px solid #5ad57f;
+}
+
+.action-button {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Alinea el botón en la parte inferior del contenedor */
+    min-height: 25vh; /* Establece la altura mínima del contenedor al 100% de la altura de la ventana (viewport height) */
+    box-sizing: border-box; /* Incluye el relleno en el cálculo del tamaño del contenedor */
+}
+
+/*.action-btn {
+    padding: 6px 25px;
+    background-color: #5ad57f;
+    color: #1b1a1a;
+    border-radius: solid 3px;
+    cursor: pointer;
+}
+
+.action-btn:hover {
+    background-color: #179422;
+}
+  */
+.action-btn {
+      width: 250px; /* Establece el ancho del botón a 350px */
+      height: 50px; /* Establece la altura del botón a 90px */
+      padding: 15px; /* Añade un padding de 15px al botón */
+    border-radius: 5px;
+    margin-right: 25px;
+    margin-left: -15px;
+    border: none;
+    background-color: #00ff5e;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.action-btn:hover {
+    background-color: #b35f00;
+}
