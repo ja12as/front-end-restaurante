@@ -1,0 +1,65 @@
+.container {
+    display: flex;
+    flex-direction: column;
+
+  }
+  
+  .header {
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .perfil-empleado img {
+    width: 150px; /* Tamaño de la imagen */
+  }
+  
+  .container-menu {
+    position: relative;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+  }
+p{
+    text-decoration:  none;
+}
+  .main-content-adm {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%; /* Ajusta el tamaño del contenedor según sea necesario */
+    margin-top: 20px;
+  }
+
+
+
+  .img-medio-admin {
+    text-align: center;
+   
+  }
+  
+  .img-medio-admin img {
+    width: 250px; /* Tamaño de la imagen */
+  }
+  
+  .action-button {
+    margin-top: 20px;
+  }
+  
+  .action-btn {
+    width: 450px; /* Ancho del botón */
+    height: 80px; /* Alto del botón */
+    background-color: green; /* Color de fondo */
+    color: black; /* Color del texto */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Transición de color al hacer hover */
+  }
+  
+  .action-btn:hover {
+    background-color: yellow; /* Color de fondo al hacer hover */
+  }
+  

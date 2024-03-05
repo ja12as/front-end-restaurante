@@ -1,72 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import '../style/SignupStyle.css';
 
+import usuario1 from '../assets/usuario1.png';
+import imgRegistrocompra from '../assets/registarCompras.png';
+import imgHistorialFactura from '../assets/historialFactura.png';
 function HomeCashierPage() {
     return (
         <div className="container">
-        <div className="header">
-            <div className="perfil-empleado">
-            <img src="../img/usuario.jpg" alt="img-empleado" />
-            <p>hola-nom-empleado</p>
+            <div className="header">
+                <div className="perfil-empleado">
+                <img src={usuario1} alt="img-empleado" />
+                <p>hola-nom-empleado</p>
+                </div>
             </div>
-        </div>
-
-        <div className="main-content">
-            <Link to="/ruta-imagen-1" style={{ textDecoration: "none" }}>
-            <div className="img-medio-cajero">
-                <img
-                src="../img/registar compras.png"
-                alt="Registro-venta"
-                style={{
-                    maxWidth: "50%",
-                    margin: "2%",
-                    paddingRight: "50px",
-                    paddingLeft: "40px",
-                }}
-                />
-                <p
-                style={{
-                    color: "black",
-                    textDecoration: "overLine",
-                    textDecorationColor: "#5AD57F",
-                    textDecorationThickness: "3px",
-                }}
-                >
-                Registrar ventas
-                </p>
+            <div className="container-menu">    
+                    <Link to='/registrar-venta'>
+                        <div className="img-medio-admin">
+                            <img src={imgRegistrocompra} alt="Registro-venta" />
+                            <p>Registrar venta</p>
+                        </div>
+                    </Link>
+                    <Link to='/historial-venta'>
+                        <div className="img-medio-admin">
+                            <img src={imgHistorialFactura} alt="Historial-factura" />
+                            <p>Historial factura</p>
+                        </div>
+                    </Link>
+                    <div className="action-button">
+                        <button className="action-btn">Cerrar Sesión</button>
+                </div> 
             </div>
-            </Link>
-
-            <Link to="/HomeAdministratorPage" style={{ textDecoration: "none" }}>
-            <div className="/src/pages/HomeAdministratorPage.jsx">
-                <img
-                src="../img/historial factura.png"
-                alt="Historial-factura"
-                style={{
-                    maxWidth: "50%",
-                    margin: "2%",
-                    paddingRight: "50px",
-                    paddingLeft: "40px",
-                }}
-                />
-                <p
-                style={{
-                    color: "black",
-                    textDecoration: "overLine",
-                    textDecorationColor: "#5AD57F",
-                    textDecorationThickness: "3px",
-                }}
-                >
-                Historial de facturas
-                </p>
-            </div>
-            </Link>
-        </div>
-
-        <div className="action-button">
-            <button className="action-btn">Cerrar Sesión</button>
-        </div>
         </div>
     );
 }
