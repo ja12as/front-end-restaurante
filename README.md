@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# Chef Control - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Chef Control es un programa diseñado específicamente para restaurantes pequeños e informales. Su enfoque principal es llevar un control eficiente de ventas, pagos y la información esencial necesaria para la gestión de estos establecimientos.
 
-## Available Scripts
+## Detalles
+Tecnologia: 
 
-In the project directory, you can run:
+    React js
 
-### `npm start`
+Dependencias:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+    tailwindcs
+    axios
+    bootstrap
+    primereact
+    react
+    react-bootstrap
+    react-dom
+    react-hook-form
+    react-router-dom
+    react-scripts
+    react-table
+    web-vitals
+## Build and run
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Create React App proporciona un entorno cómodo para aprender y construir aplicaciones React. A continuación, se detallan los pasos para construir y ejecutar un proyecto React:
 
-### `npm test`
+Configuración Inicial:
+Asegúrate de tener Node.js instalado en tu máquina con una versión igual o superior a 14.0.0 y npm con una versión igual o superior a 5.6.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Acceder al Proyecto:
+Cambia al directorio del proyecto recién creado:
 
-### `npm run build`
+   cd my-app
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Iniciar la Aplicación:
+Ejecuta el siguiente comando para iniciar la aplicación en modo de desarrollo:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   npm start
+Esto abrirá automáticamente http://localhost:3000 en tu navegador.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Visualizar la Aplicación:
+Abre http://localhost:3000 en tu navegador para ver la aplicación React. La página se recargará automáticamente cada vez que realices cambios.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Posibles Errores:
+Durante el desarrollo, es posible que observes mensajes de error en la consola del navegador. Estos pueden ser indicativos de problemas en tu código y te proporcionarán información útil para depurar.
