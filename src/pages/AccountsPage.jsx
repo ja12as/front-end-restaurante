@@ -62,7 +62,7 @@ function AccountsPage() {
                                     setFilters({
                                         global: { value: e.target.value, matchMode: 'contains' },
                                     })}
-                                placeholder='Buscar proveedores'
+                                placeholder='Buscar Usuario'
                         />
                     </div>
                 </div>
@@ -77,7 +77,7 @@ function AccountsPage() {
                     <Column field='rol' header='cantiRoldad' sortable />
                     <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
                 </DataTable>
-                <div className='button-container'>
+                <div className='bbutton-container'>
                     <Link to='/cuentas/id'>
                         <div className='text-center'>
                             <button className='btn btn-block'>

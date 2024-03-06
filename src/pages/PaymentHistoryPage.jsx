@@ -49,7 +49,7 @@ function PaymentHistoryPage() {
         <div className='container'>
             <div className='wrapper bg-white' style={{ maxWidth: "1300px" }}>
                 <div className='h2 text-center'>
-                    Inventarios inmuebles
+                    Historial de pago por ADMIN 
                 </div>
                 <div className='form-group py-2'>
                     <div className='input-field'>
@@ -71,20 +71,22 @@ function PaymentHistoryPage() {
                     <Column field='user' header='Usuario' sortable />
                     <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
                 </DataTable>
-                <Link to='/pagos/realizar-pago'>
-                    <div className='text-center my-3'>
-                        <button className='btn btn-block'>
-                            Registrar Pago
-                        </button>
-                    </div>
-                </Link>
-                <Link to='/pagos'>
-                    <div className='text-center my-3'>
-                        <button className='btn btn-block'>
-                            salir
-                        </button>
-                    </div>
-                </Link>
+                <div className='botbutton-containeron'>
+                    <Link to='/pagos/realizar-pago'>
+                        <div className='text-center my-3'>
+                            <button className='btn btn-block'>
+                                Registrar pago
+                            </button>
+                        </div>
+                    </Link>
+                    <Link to='/pagos'>
+                        <div className='text-center my-3'>
+                            <button className='btn btn-block'>
+                                salir
+                            </button>
+                        </div>
+                    </Link>
+                </div>
             </div>
         </div>
     );

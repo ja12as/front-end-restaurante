@@ -5,7 +5,7 @@ Hora
 Valor total de la venta 
 Medio de pago 
 Quien la realizo 
-Cantidad de productos vendidos 
+valorTotalpa de productos vendidos 
   */
 
 import React, { useState } from 'react';
@@ -24,20 +24,20 @@ function SalesHistoryPage() {
 
 // Datos de ejemplo para la tabla
 const data = [
-    { id: 1, nombre: 'Ejemplo 1', descripcion: 'descripcion A', cantidad: '123456789' },
-    { id: 2, nombre: 'Ejemplo 2', descripcion: 'descripcion B', cantidad: '987654321' },
-    { id: 3, nombre: 'Ejemplo 3', descripcion: 'descripcion C', cantidad: '123456789' },
-    { id: 4, nombre: 'Ejemplo 4', descripcion: 'descripcion D', cantidad: '987654321' },
-    { id: 5, nombre: 'Ejemplo 5', descripcion: 'descripcion E', cantidad: '123456789' },
-    { id: 6, nombre: 'Ejemplo 6', descripcion: 'descripcion F', cantidad: '987654321' },
-    { id: 7, nombre: 'Ejemplo 7', descripcion: 'descripcion G', cantidad: '123456789' },
-    { id: 8, nombre: 'Ejemplo 8', descripcion: 'descripcion H', cantidad: '987654321' },
-    { id: 9, nombre: 'Ejemplo 9', descripcion: 'descripcion J', cantidad: '123456789' },
-    { id: 10, nombre: 'Ejemplo 10', descripcion: 'descripcion K', cantidad: '987654321' },
-    { id: 11, nombre: 'Ejemplo 11', descripcion: 'descripcion L', cantidad: '123456789' },
-    { id: 12, nombre: 'Ejemplo 12', descripcion: 'descripcion M', cantidad: '987654321' },
-    { id: 13, nombre: 'Ejemplo 13', descripcion: 'descripcion N', cantidad: '123456789' },
-    { id: 14, nombre: 'Ejemplo 14', descripcion: 'descripcion O', cantidad: '987654321' },
+    { id: 1, fecha: 'Ejemplo 1', hora: 'hora A', valorTotalpa: '123456789',tPago:'efectivo',cajero:'2', cantidadProduct:'34'},
+    { id: 2, fecha: 'Ejemplo 2', hora: 'hora B', valorTotalpa: '987654321' ,tPago:'efectivo',cajero:'2', cantidadProduct:'34'},
+    { id: 3, fecha: 'Ejemplo 3', hora: 'hora C', valorTotalpa: '123456789' ,tPago:'efectivo',cajero:'2', cantidadProduct:'34'},
+    { id: 4, fecha: 'Ejemplo 4', hora: 'hora D', valorTotalpa: '987654321' ,tPago:'efectivo',cajero:'2', cantidadProduct:'34'},
+    { id: 5, fecha: 'Ejemplo 5', hora: 'hora E', valorTotalpa: '123456789' ,tPago:'efectivo',cajero:'2', cantidadProduct:'34'},
+    { id: 6, fecha: 'Ejemplo 6', hora: 'hora F', valorTotalpa: '987654321' ,tPago:'efectivo',cajero:'2', cantidadProduct:'34'},
+    { id: 7, fecha: 'Ejemplo 7', hora: 'hora G', valorTotalpa: '123456789' ,tPago:'efectivo',cajero:'2', cantidadProduct:'34'},
+    { id: 8, fecha: 'Ejemplo 8', hora: 'hora H', valorTotalpa: '987654321' ,tPago:'efectivo',cajero:'2', cantidadProduct:'34'},
+    { id: 9, fecha: 'Ejemplo 9', hora: 'hora J', valorTotalpa: '123456789' ,tPago:'efectivo',cajero:'2', cantidadProduct:'34'},
+    { id: 10, fecha: 'Ejemplo 10', hora: 'hora K', valorTotalpa: '987654321' ,tPago:'efectivo',cajero:'2', cantidadProduct:'34'},
+    { id: 11, fecha: 'Ejemplo 11', hora: 'hora L', valorTotalpa: '123456789' ,tPago:'efectivo',cajero:'2', cantidadProduct:'34'},
+    { id: 12, fecha: 'Ejemplo 12', hora: 'hora M', valorTotalpa: '987654321' ,tPago:'efectivo',cajero:'2', cantidadProduct:'34'},
+    { id: 13, fecha: 'Ejemplo 13', hora: 'hora N', valorTotalpa: '123456789' ,tPago:'efectivo',cajero:'2', cantidadProduct:'34'},
+    { id: 14, fecha: 'Ejemplo 14', hora: 'hora O', valorTotalpa: '987654321' ,tPago:'efectivo',cajero:'2', cantidadProduct:'34'},
     // Agregar más objetos de datos según sea necesario
 ];
 const accionesBodyTemplate = () => {
@@ -52,7 +52,7 @@ return (
     <div className='container'>
         <div className='wrapper bg-white' style={{ maxWidth: "1300px" }}>
             <div className='h2 text-center'>
-                Inventarios inmuebles
+                Historial de ventas 
             </div>
             <div className='form-group py-2'>
                 <div className='input-field'>
@@ -61,22 +61,25 @@ return (
                                 setFilters({
                                     global: { value: e.target.value, matchMode: 'contains' },
                                 })}
-                            placeholder='Buscar proveedores'
+                            placeholder='Buscar Ventas'
                     />
                 </div>
             </div>
             <DataTable value={data} sortMode='multiple' filters={filters} paginator rows={10} totalRecords={data.length}>
                 <Column field='id' header='Identificacion' sortable />
-                <Column field='nombre' header='Nombre' sortable />
-                <Column field='descripcion' header='Descripcion' sortable />
-                <Column field='cantidad' header='cantidad' sortable />
+                <Column field='fecha' header='DD/MM/AAAA' sortable />
+                <Column field='hora' header='Hora' sortable />
+                <Column field='valorTotalpa' header='Valor total' sortable />
+                <Column field='tPago' header='Tipo Pago' sortable />
+                <Column field='cajero' header='Cajero' sortable />
+                <Column field='cantidadProduct' header='Total producto' sortable />
                 <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
             </DataTable>
                 <div className='botbutton-containeron'>
-                    <Link to='/inventario/actualizar'>
+                    <Link to='/registrar-venta'>
                         <div className='text-center'>
                             <button className='btn btn-block'>
-                                Crear Inventario
+                                Registrar Venta
                             </button>
                         </div>
                     </Link>

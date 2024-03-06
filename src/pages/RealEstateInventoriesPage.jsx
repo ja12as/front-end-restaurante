@@ -56,7 +56,7 @@ function RealEstateInventoriesPage() {
                                     setFilters({
                                         global: { value: e.target.value, matchMode: 'contains' },
                                     })}
-                                placeholder='Buscar proveedores'
+                                placeholder='Buscar Inmueble'
                         />
                     </div>
                 </div>
@@ -67,7 +67,8 @@ function RealEstateInventoriesPage() {
                     <Column field='cantidad' header='cantidad' sortable />
                     <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
                 </DataTable>
-                <div className='button-container'>
+
+                <div className='bbutton-container'>
                     <Link to='/inventario/actualizar'>
                         <div className='text-center'>
                             <button className='btn btn-block'>
@@ -83,6 +84,7 @@ function RealEstateInventoriesPage() {
                         </div>
                     </Link>
                 </div>
+                
             </div>
         </div>
     );

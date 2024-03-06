@@ -9,16 +9,16 @@ function PaymentsPage() {
     return (
         <div className="container">
             <div className="container-menu">    
-                    <Link to='/registrar-venta'>
+                    <Link to='/pagos/realizar-pago'>
                         <div className="img-medio-admin">
                             <img src={imgRegistrocompra} alt="Registro-venta" />
-                            <p>Registrar venta</p>
+                            <p>Registrar pago</p>
                         </div>
                     </Link>
-                    <Link to='/historial-venta'>
+                    <Link to='/pagos/historial-pago'>
                         <div className="img-medio-admin">
                             <img src={imgHistorialFactura} alt="Historial-factura" />
-                            <p>Historial factura</p>
+                            <p>Historial de pago</p>
                         </div>
                     </Link>
                     <div className='button-container'>

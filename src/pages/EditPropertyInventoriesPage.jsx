@@ -17,7 +17,7 @@ function EditPropertyInventoriesPage() {
 
     return (
         <div className='div-padre'>
-            <h1 className='titulo'>Registro de Inventario</h1>
+            <h1 className='titulo'>Registro de Inmueble</h1>
             <form onSubmit={handleSubmit(async(values)=>{
                 console.log(values);
             })} className='formulario'>

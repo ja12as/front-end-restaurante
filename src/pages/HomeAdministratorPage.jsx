@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import '../style/home.css'
+import '../style/home.css';
 import usuario1 from '../assets/usuario1.png';
 import imgRegistrocompra from '../assets/registarCompras.png';
 import imgHistorialFactura from '../assets/historialFactura.png';
@@ -23,25 +23,25 @@ function HomeAdministratorPage() {
             <div className="container-menu">
                 
                 <div className="main-content-adm">
-                    <Link to='/registrar-venta'>
+                    <Link to='/registrar-venta' className="link-sin-subrayado">
                         <div className="img-medio-admin">
                             <img src={imgRegistrocompra} alt="Registro-venta" />
                             <p>Registrar venta</p>
                         </div>
                     </Link>
-                    <Link to='/historial-venta'>
+                    <Link to='/historial-venta' className="link-sin-subrayado">
                         <div className="img-medio-admin">
                             <img src={imgHistorialFactura} alt="Historial-factura" />
                             <p>Historial factura</p>
                         </div>
                     </Link>
-                    <Link to='/menu'>
+                    <Link to='/menu'  className="link-sin-subrayado">
                         <div className="img-medio-admin">
                             <img src={imgMenu} alt="Registro-menu" />
                             <p>Registro menu</p>
                         </div>
                     </Link>
-                    <Link to='/cuentas'>
+                    <Link to='/cuentas' className="link-sin-subrayado">
                         <div className="img-medio-admin">
                             <img src={imgPerfil} alt="perfil" />
                             <p>Perfiles</p>

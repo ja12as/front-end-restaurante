@@ -42,7 +42,7 @@ function EditMenuPage() {
                                 <button type='submit' className='boton 1'>Salir</button>
                             </div>
                         </Link>
-                        <Link to='/menu'>
+                        <Link to=''>
                             <div className="img-medio-admin">
                                 <button type='submit' className='boton 2'>Registrar</button>
                             </div>

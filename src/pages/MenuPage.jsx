@@ -60,19 +60,19 @@ function MenuPage() {
                                     setFilters({
                                         global: { value: e.target.value, matchMode: 'contains' },
                                     })}
-                                placeholder='Buscar proveedores'
+                                placeholder='Buscar Menu'
                         />
                     </div>
                 </div>
                 <DataTable value={data} sortMode='multiple' filters={filters} paginator rows={10} totalRecords={data.length}>
                     <Column field='id' header='Cod' sortable />
                     <Column field='nombre' header='Nombre' sortable />
-                    <Column field='categorioa' header='Categoria' sortable />
+                    <Column field='categoria' header='Categoria' sortable />
                     <Column field='descripcion' header='Descripcion' sortable />
                     <Column field='precio' header='Precio' sortable />
                     <Column field='accion' header='Accion' body={accionesBodyTemplate} />
                 </DataTable>
-                <div className='bbutton-containeroton'>
+                <div className='bbutton-container'>
                     <Link to='/menu/actualizar-menu'>
                         <div className='text-center'>
                             <button className='btn btn-block'>

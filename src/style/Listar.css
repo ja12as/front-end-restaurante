@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 10%;
     height: 90vh; /* Esto centra el contenido verticalmente */
 }
 
@@ -63,14 +64,13 @@
 /* Estilos para el contenedor de los botones */
 .button-container {
     display: flex;
-    flex-direction: column;
     align-items: center; /* Centra horizontalmente los elementos */
 }
 
 /* Estilos para los botones */
 .btn {
-    display: block;
-    width: 100%;
+    float: left;
+    width: 10%;
     text-decoration: none;
     padding: 10px 20px;
     background-color: #00ff1e;
@@ -79,6 +79,7 @@
     border-radius: 5px;
     cursor: pointer;
     margin-top: 20px; /* Espacio entre los botones */
+    margin-left: 26%;
 }
 
 .btn:hover {

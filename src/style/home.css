@@ -1,27 +1,26 @@
 .container {
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
 
   }
   
   .header {
     position: relative;
     align-items: flex-start;
-    justify-content: flex-start;
-    align-items: center;
+    margin-right: 20%;
     width: 100%;
     padding: 20px;
   }
   
   .perfil-empleado img {
-    width: 150px; /* Tamaño de la imagen */
+    width: 80px; /* Tamaño de la imagen */
   }
   
   .container-menu {
-    position: relative;
-    display: inline-block;
+    display: flex;
     align-items: center;
-    justify-content: center;
+    margin-top: 100px;
   }
 p{
     text-decoration:  none;
@@ -33,22 +32,26 @@ p{
     width: 100%; /* Ajusta el tamaño del contenedor según sea necesario */
     margin-top: 20px;
   }
+  .link-sin-subrayado {
+    text-decoration: none;
+}
 
 
-
-  .img-medio-admin {
-    text-align: center;
-   
-  }
-  
   .img-medio-admin img {
-    width: 250px; /* Tamaño de la imagen */
+    width: 100px; 
+   /* Tamaño de la imagen */
+  }
+
+  .img-medio-admin p {
+    text-decoration: overline 2px;
+    text-decoration-color: chartreuse;
   }
   
   .action-button {
     margin-top: 20px;
   }
   
+
   .action-btn {
     width: 450px; /* Ancho del botón */
     height: 80px; /* Alto del botón */

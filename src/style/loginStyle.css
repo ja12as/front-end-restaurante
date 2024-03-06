@@ -17,7 +17,7 @@
 }
 
 .login-container {
-    position: absolute;
+    position: relative;
     left: 25%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -26,7 +26,8 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 90%; /* Anchura máxima del contenedor */
-    width: 400px; /* Anchura del contenedor */
+    width: 400px; 
+    height: 500px;/* Anchura del contenedor */
 }
 
 .logo {
@@ -51,30 +52,39 @@ input[type="password"]
     border-radius: 5px;
     box-sizing: border-box;
 }
-
-.boton {
+.text{
     position: relative;
-    width: 250px; /* Establece el ancho del botón a 350px */
-    height: 50px; /* Establece la altura del botón a 90px */
-    padding: 15px; /* Añade un padding de 15px al botón */
-    margin-left: 20%;
-    border-radius: 5px;
-    border: none;
-    background-color: #00ff5e;
-    color: rgb(0, 0, 0);
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    align-items: center;
+
 }
 
-.boton:hover {
-    background-color: #b35f00;
+.bbtoon{
+    display: flex;
+    align-items: center;
+
+}
+
+.ingresar {
+        float: left;
+        width: 450px; /* Establece el ancho del botón a 350px */
+        height: 50px; /* Establece la altura del botón a 90px */
+        padding: 15px; /* Añade un padding de 15px al botón */
+        margin-top: 30px;
+        margin-left: 0px;
+        border-radius: 5px;
+        border: none;
+        background-color: #14e214;
+        color: rgb(0, 0, 0);
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+}
+
+
+.ingresar:hover {
+    background-color: #FFDE59;
 }
 
 
 input[type="submit"]:hover {
     background-color: #0056b3;
-}
-div .text{
-    position: relative;
-    text-align: center;
 }

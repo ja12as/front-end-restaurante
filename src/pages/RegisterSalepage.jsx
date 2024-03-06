@@ -11,7 +11,7 @@ import React from 'react'
 function RegisterSalepage() {
     return (
         <div>
-        
+            este es la vista de ver la parte de regitsrar ventas
         </div>
     )
 }

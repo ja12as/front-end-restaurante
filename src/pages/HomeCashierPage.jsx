@@ -1,6 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
 
+import { Link } from "react-router-dom";
 import usuario1 from '../assets/usuario1.png';
 import imgRegistrocompra from '../assets/registarCompras.png';
 import imgHistorialFactura from '../assets/historialFactura.png';
