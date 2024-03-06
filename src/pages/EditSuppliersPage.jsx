@@ -10,6 +10,7 @@ Correo
 Editar, crear o desactivar proveedores */
 
 import {useForm} from 'react-hook-form'
+import { Link } from 'react-router-dom';
 import '../style/RegisterStyle.css';
 
 
@@ -50,9 +51,18 @@ function EditSuppliersPage() {
                             <input type="text" {...register("tdocumento", { required: true })} placeholder="descripcion" />
                         </div>
                     </div>
+                    
                     <div className="botones">
-                        <button type='submit' className='boton 1'>Salir</button>
-                        <button type='submit' className='boton 2'>Registrar</button>
+                        <Link to='/provedores'>
+                            <div className="img-medio-admin">
+                                <button type='submit' className='boton 1'>Salir</button>
+                            </div>
+                        </Link>
+                        <Link to='/provedores'>
+                            <div className="img-medio-admin">
+                                <button type='submit' className='boton 2'>Registrar</button>
+                            </div>
+                        </Link>
                     </div>
                 </form>
             </div>

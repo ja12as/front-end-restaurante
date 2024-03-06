@@ -2,10 +2,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Esto centra el contenido verticalmente */
+    margin-left: 10%;
+    height: 90vh; /* Esto centra el contenido verticalmente */
 }
 
 .wrapper {
+
     padding: 40px;
     border: 2px solid #ccc;
     border-radius: 10px;
@@ -59,34 +61,27 @@
     text-align: center;
 }
 
+/* Estilos para el contenedor de los botones */
+.button-container {
+    display: flex;
+    align-items: center; /* Centra horizontalmente los elementos */
+}
+
+/* Estilos para los botones */
 .btn {
-    display: inline-block; /* Hace que el enlace se comporte como un bloque */
-    width: 300px; /* Establece el ancho del enlace */
-    text-decoration: none; 
+    float: left;
+    width: 10%;
+    text-decoration: none;
     padding: 10px 20px;
     background-color: #00ff1e;
     color: #000000;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 20px; /* Espacio entre los botones */
+    margin-left: 26%;
 }
 
 .btn:hover {
     background-color: #f3fb18;
-}
-
-.btn-block {
-    display: block;
-    width: 100%;
-}
-
-.my-3 {
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-
-.Link {
-    display: inline-block; /* Hace que el enlace se comporte como un bloque */
-    width: 300px; /* Establece el ancho del enlace */
-    text-decoration: none; /* Elimina la subrayado predeterminado del enlace */
 }
