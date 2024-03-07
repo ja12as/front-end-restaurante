@@ -88,3 +88,21 @@ input[type="password"]
 input[type="submit"]:hover {
     background-color: #0056b3;
 }
+
+@media screen and (min-width: 1200px) {
+    .login-container {
+        width: 500px; /* Ajusta el ancho del contenedor de inicio de sesión a 500px en pantallas mayores a 1200px */
+        height: 600px; /* Ajusta la altura del contenedor de inicio de sesión a 600px en pantallas mayores a 1200px */
+    }
+
+    .logo {
+        width: 250px; /* Ajusta el ancho del logotipo a 250px en pantallas mayores a 1200px */
+        height: 250px; /* Ajusta la altura del logotipo a 250px en pantallas mayores a 1200px */
+    }
+
+    .ingresar {
+        width: 450px; /* Establece el ancho del botón "Ingresar" a 450px en pantallas mayores a 1200px */
+        height: 60px; /* Establece la altura del botón "Ingresar" a 60px en pantallas mayores a 1200px */
+        margin-top: 40px; /* Ajusta el margen superior del botón "Ingresar" en pantallas mayores a 1200px */
+    }
+}

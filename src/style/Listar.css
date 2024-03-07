@@ -85,3 +85,18 @@
 .btn:hover {
     background-color: #f3fb18;
 }
+
+@media screen and (min-width: 1200px) {
+    .container {
+        margin-left: 0; /* Cambia el margen izquierdo a cero en pantallas mayores a 1200px */
+    }
+
+    .wrapper {
+        width: 100%; /* Ajusta el ancho del contenedor al 100% en pantallas mayores a 1200px */
+    }
+
+    .btn {
+        width: auto; /* Cambia el ancho de los botones a automático en pantallas mayores a 1200px */
+        margin-left: 0; /* Elimina el margen izquierdo de los botones en pantallas mayores a 1200px */
+    }
+}

@@ -70,9 +70,12 @@ function HomeAdministratorPage() {
                     </Link>
                 </div>
             </div>
-            <div className="action-button">
-                <button className="action-btn">Cerrar Sesión</button>
-            </div>
+            <Link to='/'>
+                <div className='bbtoon'>
+                    <button class="ingresar" type='submit'>Cerrar Sesion</button>
+                </div>
+            </Link>
+
         </div>
     );
 }

@@ -14,32 +14,29 @@
   }
   
   .perfil-empleado img {
-    width: 80px; /* Tamaño de la imagen */
+    width: 80px;
   }
   
   .container-menu {
     display: flex;
     align-items: center;
-    margin-top: 100px;
+
   }
-p{
-    text-decoration:  none;
-}
+
   .main-content-adm {
-    display: flex;
+    display:flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 100%; /* Ajusta el tamaño del contenedor según sea necesario */
+    align-content: space-around;
+    margin: 5%;
+    width: 100%; 
     margin-top: 20px;
   }
-  .link-sin-subrayado {
-    text-decoration: none;
-}
 
 
   .img-medio-admin img {
     width: 100px; 
-   /* Tamaño de la imagen */
+    margin: 3%;
   }
 
   .img-medio-admin p {
@@ -53,16 +50,16 @@ p{
   
 
   .action-btn {
-    width: 450px; /* Ancho del botón */
-    height: 80px; /* Alto del botón */
-    background-color: green; /* Color de fondo */
-    color: black; /* Color del texto */
+    width: 450px;
+    height: 80px; 
+    background-color: green; 
+    color: black; 
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s; /* Transición de color al hacer hover */
+    transition: background-color 0.3s; 
   }
   
   .action-btn:hover {
-    background-color: yellow; /* Color de fondo al hacer hover */
+    background-color: yellow; 
   }
   

@@ -74,7 +74,7 @@ function AccountsPage() {
                     <Column field='telefono' header='Telefono' sortable />
                     <Column field='direccion' header='Direccion' sortable />
                     <Column field='correo' header='Correo' sortable />
-                    <Column field='rol' header='cantiRoldad' sortable />
+                    <Column field='rol' header='Rol' sortable />
                     <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
                 </DataTable>
                 <div className='bbutton-container'>
