@@ -71,17 +71,24 @@ function PaymentHistoryPage() {
                     <Column field='user' header='Usuario' sortable />
                     <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
                 </DataTable>
-                <div className='botbutton-containeron'>
+                <div className='boton-historia'>
                     <Link to='/pagos/realizar-pago'>
                         <div className='text-center my-3'>
-                            <button className='btn btn-block'>
+                            <button className='btn-block'>
                                 Registrar pago
+                            </button>
+                        </div>
+                    </Link>
+                    <Link to='/reporte'>
+                        <div className='text-center my-3'>
+                            <button className='btn-block'>
+                                Generar Reporte
                             </button>
                         </div>
                     </Link>
                     <Link to='/pagos'>
                         <div className='text-center my-3'>
-                            <button className='btn btn-block'>
+                            <button className='btn-block'>
                                 salir
                             </button>
                         </div>

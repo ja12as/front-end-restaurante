@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     margin-left: 10%;
-    height: 90vh; /* Esto centra el contenido verticalmente */
+    height: 90vh;
 }
 
 .wrapper {
@@ -12,7 +12,7 @@
     border: 2px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    width: 2500px; /* Ajusta el ancho del contenedor */
+    width: 2500px;
     height: 500px;
 
 }
@@ -24,7 +24,7 @@
 .h2 {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 20px; /* Añade un margen inferior */
+    margin-bottom: 20px; 
 }
 
 .text-center {
@@ -32,7 +32,7 @@
 }
 
 .form-group {
-    margin-bottom: 30px; /* Aumenta el espacio entre los grupos de formulario */
+    margin-bottom: 30px; 
 }
 
 .input-field {
@@ -43,7 +43,7 @@
 
 .DataTable th:first-child,
 .DataTable td:first-child {
-    border-left: 2px solid yellow; /* Añade un borde izquierdo amarillo */
+    border-left: 2px solid yellow; 
 }
 
 .DataTable th,
@@ -61,13 +61,9 @@
     text-align: center;
 }
 
-/* Estilos para el contenedor de los botones */
-.button-container {
-    display: flex;
-    align-items: center; /* Centra horizontalmente los elementos */
-}
 
-/* Estilos para los botones */
+
+
 .btn {
     float: left;
     width: 10%;
@@ -78,25 +74,29 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 20px; /* Espacio entre los botones */
+    margin-top: 20px;
     margin-left: 26%;
 }
+
 
 .btn:hover {
     background-color: #f3fb18;
 }
 
-@media screen and (min-width: 1200px) {
-    .container {
-        margin-left: 0; /* Cambia el margen izquierdo a cero en pantallas mayores a 1200px */
-    }
-
-    .wrapper {
-        width: 100%; /* Ajusta el ancho del contenedor al 100% en pantallas mayores a 1200px */
-    }
-
-    .btn {
-        width: auto; /* Cambia el ancho de los botones a automático en pantallas mayores a 1200px */
-        margin-left: 0; /* Elimina el margen izquierdo de los botones en pantallas mayores a 1200px */
-    }
+.btn-block {
+    float: left;
+    width: 10%;
+    text-decoration: none;
+    padding: 10px 2px;
+    background-color: #00ff1e;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 18%;
 }
+.btn-block:hover {
+    background-color: #f3fb18;
+}
+

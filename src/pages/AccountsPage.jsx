@@ -80,14 +80,14 @@ function AccountsPage() {
                 <div className='bbutton-container'>
                     <Link to='/cuentas/id'>
                         <div className='text-center'>
-                            <button className='btn btn-block'>
+                            <button className='btn'>
                                 Crear Usuario
                             </button>
                         </div>
                     </Link>
                     <Link to='/home-admin'>
                         <div className='text-center'>
-                            <button className='btn btn-block'>
+                            <button className='btn'>
                                 salir
                             </button>
                         </div>

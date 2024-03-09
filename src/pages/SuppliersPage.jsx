@@ -74,17 +74,17 @@ function SuppliersPage() {
                     <Column field='correo' header='Correo' sortable />
                     <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
                 </DataTable>
-                <div className='botbutton-containeron'>
+                <div className='bbutton-container'>
                     <Link to='/provedores/actualizar'>
                         <div className='text-center'>
-                            <button className='btn btn-block'>
+                            <button className='btn'>
                                 Crear proveedor
                             </button>
                         </div>
                     </Link>
                     <Link to='/home-admin'>
                         <div className='text-center'>
-                            <button className='btn btn-block'>
+                            <button className='btn'>
                                 salir
                             </button>
                         </div>

@@ -60,7 +60,7 @@ function EditSuppliersPage() {
                         </Link>
                         <Link to='/provedores'>
                             <div className="img-medio-admin">
-                                <button type='submit' className='boton 2'>Registrar</button>
+                                <button type='submit' className='boton 2'>Guardar</button>
                             </div>
                         </Link>
                     </div>

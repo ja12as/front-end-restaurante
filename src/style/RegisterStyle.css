@@ -46,6 +46,14 @@
     border: 1px solid #ccc;
     box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
 }
+.form-group select {
+    width: calc(100% - 60px); /* Ajusta el ancho de los inputs descontando el padding */
+    padding: 15px; /* Añade un padding de 15px a los inputs */
+    margin-right: 30px; /* Añade margen a la derecha de los inputs */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
+}
 
 .botones{
     display: flex;
@@ -59,7 +67,7 @@
     margin: 50px 0px 50px 250px;
 
     border: none;
-    background-color: #00ff5e;
+    background-color: #00ff1e;
     color: rgb(0, 0, 0);
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -68,23 +76,5 @@
 
 
 .boton:hover {
-    background-color: #b35f00;
-}
-
-
-@media screen and (min-width: 1200px) {
-    .titulo {
-        font-size: 40px; /* Aumenta el tamaño de la fuente del título a 40px en pantallas mayores a 1200px */
-    }
-
-    .div-col-1,
-    .div-col-2 {
-        width: 50%; /* Cambia el ancho de las columnas a 50% en pantallas mayores a 1200px */
-    }
-
-    .boton {
-        width: 350px; /* Establece el ancho del botón a 350px en pantallas mayores a 1200px */
-        height: 90px; /* Establece la altura del botón a 90px en pantallas mayores a 1200px */
-        margin: 50px 0 50px 0; /* Modifica los márgenes del botón en pantallas mayores a 1200px */
-    }
+    background-color: #FFDE59;
 }
