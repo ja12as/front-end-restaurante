@@ -46,7 +46,7 @@ function EditPropertyInventoriesPage() {
                     <Link to='/inventario/actualizar'>
                         <div className='text-center my-3'>
                             <button className='boton 1'>
-                                Registrar
+                                Guardar
                             </button>
                         </div>
                     </Link>

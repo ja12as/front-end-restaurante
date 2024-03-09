@@ -1,68 +1,115 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-
-  }
-  
-  .header {
-    position: relative;
-    align-items: flex-start;
-    margin-right: 20%;
-    width: 100%;
-    padding: 20px;
-  }
-  
-  .perfil-empleado img {
-    width: 80px; /* Tamaño de la imagen */
-  }
-  
-  .container-menu {
-    display: flex;
-    align-items: center;
-    margin-top: 100px;
-  }
-p{
-    text-decoration:  none;
+.header, .container-menu, .bbtoon {
+  width: 100%;
 }
-  .main-content-adm {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%; /* Ajusta el tamaño del contenedor según sea necesario */
-    margin-top: 20px;
-  }
-  .link-sin-subrayado {
-    text-decoration: none;
+.container{
+display: flex;
+align-items: stretch;
+margin-left: 10%;
+margin-right: -10%;
+height: 90vh;
+flex-wrap: wrap;
+align-content: flex-start;
+flex-direction: column;
+justify-content: space-around;
+}
+.container2{
+  display: flex;
+  align-items: stretch;
+  margin-left: 40%;
+  height: 80vh;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
+.header img {
+  width: 100px;
+}
+.header p{
+  margin-top: 40px;
+  margin-left: 25px;
+  width: 150px;
+  height: 50px;
+  font-size: 16px;
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
 
-  .img-medio-admin img {
-    width: 100px; 
-   /* Tamaño de la imagen */
-  }
+.perfil-empleado{
+  display: flex;
+  flex-direction: row;
+}
+.container-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+  margin-top: 30px;
+}
+.container-menu2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  margin-top: 100px;
+}
+.link-boton{
+  margin-top: 50px;
+}
+.main-content-adm {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
 
-  .img-medio-admin p {
-    text-decoration: overline 2px;
-    text-decoration-color: chartreuse;
-  }
-  
-  .action-button {
-    margin-top: 20px;
-  }
-  
+.main-content-adm .div-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(100% / 4 - 25px);
+}
 
-  .action-btn {
-    width: 450px; /* Ancho del botón */
-    height: 80px; /* Alto del botón */
-    background-color: green; /* Color de fondo */
-    color: black; /* Color del texto */
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s; /* Transición de color al hacer hover */
-  }
-  
-  .action-btn:hover {
-    background-color: yellow; /* Color de fondo al hacer hover */
-  }
-  
+.main-content-adm .div-logo .img-wrapper {
+  width: 120px;
+  border-bottom: 4px solid green;
+}
+
+.main-content-adm .div-logo img {
+  width: 100%;
+}
+
+.main-content-adm .div-logo p {
+  color: black;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.link-sin-subrayado {
+  text-decoration: none;
+  font-weight: bold;
+  color: inherit; /* Esto hará que el color del enlace sea el mismo que el del texto circundante */
+}
+
+.bbtoon {
+  display: flex;
+  justify-content: center;
+}
+
+.bbtoon .ingresar {
+  width: 250px;
+  height: 50px;
+  background-color: green;
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.bbtoon .ingresar:hover {
+  background-color: yellow;
+}

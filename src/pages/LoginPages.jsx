@@ -59,9 +59,12 @@ function LoginPages() {
                     <Link  to="/pregunta">Olvidar Contraseña</Link>
                 </div>
     
-                <div className='bbtoon'>
-                    <button class="ingresar" onClick={handleLogin}>Ingresar</button>
-                </div>
+                    <Link to='/home-admin'>
+                        <div className='bbtoon'>
+                            <button class="ingresar" type='submit'>Ingresar</button>
+                        </div>
+                    </Link>
+    
             </form>
         </div>
     </div>

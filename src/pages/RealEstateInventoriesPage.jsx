@@ -71,14 +71,14 @@ function RealEstateInventoriesPage() {
                 <div className='bbutton-container'>
                     <Link to='/inventario/actualizar'>
                         <div className='text-center'>
-                            <button className='btn btn-block'>
+                            <button className='btn'>
                                 Crear Inventario
                             </button>
                         </div>
                     </Link>
                     <Link to='/home-admin'>
                         <div className='text-center'>
-                            <button className='btn btn-block'>
+                            <button className='btn'>
                                 salir
                             </button>
                         </div>

@@ -12,7 +12,7 @@ import { Column } from "primereact/column";
 import { FilterMatchMode } from 'primereact/api';
 import updateIcon from '../assets/menu.png'; 
 import { InputText } from 'primereact/inputtext';
-import '../style/Listar.css'
+import '../style/Listar.css';
 
 
 function MenuPage() {
@@ -75,14 +75,14 @@ function MenuPage() {
                 <div className='bbutton-container'>
                     <Link to='/menu/actualizar-menu'>
                         <div className='text-center'>
-                            <button className='btn btn-block'>
+                            <button className='btn'>
                                 Crear Menu
                             </button>
                         </div>
                     </Link>
                     <Link to='/home-admin'>
                         <div className='text-center'>
-                            <button className='btn btn-block'>
+                            <button className='btn'>
                                 salir
                             </button>
                         </div>

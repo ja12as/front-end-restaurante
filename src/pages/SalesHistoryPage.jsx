@@ -75,17 +75,24 @@ return (
                 <Column field='cantidadProduct' header='Total producto' sortable />
                 <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
             </DataTable>
-                <div className='botbutton-containeron'>
+                <div className='boton-historia'>
                     <Link to='/registrar-venta'>
                         <div className='text-center'>
-                            <button className='btn btn-block'>
+                            <button className='btn-block'>
                                 Registrar Venta
+                            </button>
+                        </div>
+                    </Link>
+                    <Link to='/reporte'>
+                        <div className='text-center my-3'>
+                            <button className='btn-block'>
+                                Generar Reporte
                             </button>
                         </div>
                     </Link>
                     <Link to='/home-admin'>
                         <div className='text-center'>
-                            <button className='btn btn-block'>
+                            <button className='btn-block'>
                                 salir
                             </button>
                         </div>
