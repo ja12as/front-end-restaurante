@@ -42,32 +42,32 @@ function LoginPages() {
 
     return (
         <div className="login-page">
-        <img src={imgbodylogin} alt="Imagen de fondo" className="bg-image" />
-        <div className="login-container">
-            <img src={imglogin}alt="Logo" className="logo" />
-            <form className="login-form" method="post">
-                <div>
-                    <label htmlFor="usuario">Usuario</label>
-                    <input type="text" id="usuario" name="usuario" required  value={correo} onChange={(e) => setCorreo(e.target.value)}/>
-                    <label htmlFor="contrasena">Contraseña</label>
-                    <input type={showPassword ? "text" : "password"}  className="" value={password} onChange={(e) => setPassword(e.target.value)} />
-                                        {/*}    <button className="btn bg-white text-muted" onClick={togglePasswordVisibility}>
-                                                <span className={showPassword ? "far fa-eye" : "far fa-eye-slash"}></span>
-                                </button>*/}
-                </div>          
-                <div className='text'>
-                    <Link  to="/pregunta">Olvidar Contraseña</Link>
-                </div>
-    
-                    <Link to='/home-admin'>
-                        <div className='bbtoon'>
-                            <button class="ingresar" type='submit'>Ingresar</button>
-                        </div>
-                    </Link>
-    
-            </form>
-        </div>
-    </div>
+            <img src={imgbodylogin} alt="Imagen de fondo" className="bg-image" />
+            <div className="login-container">
+                <img src={imglogin}alt="Logo" className="logo" />
+                <form className="login-form" method="post">
+                    <div>
+                        <label htmlFor="usuario">Usuario</label>
+                        <input type="text" id="usuario" name="usuario" required  value={correo} onChange={(e) => setCorreo(e.target.value)}/>
+                        <label htmlFor="contrasena">Contraseña</label>
+                        <input type={showPassword ? "text" : "password"}  className="" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                            {/*}    <button className="btn bg-white text-muted" onClick={togglePasswordVisibility}>
+                                                    <span className={showPassword ? "far fa-eye" : "far fa-eye-slash"}></span>
+                                    </button>*/}
+                    </div>          
+                    <div className='text'>
+                        <Link  to="/pregunta">Olvidar Contraseña</Link>
+                    </div>
+        
+                        <Link to='/home-admin'>
+                            <div className='bbtoon'>
+                                <button class="ingresar" type='submit'>Ingresar</button>
+                            </div>
+                        </Link>
+        
+                </form>
+            </div>
+    |   </div>
     )
 }
 

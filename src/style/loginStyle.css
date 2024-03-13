@@ -1,6 +1,6 @@
 .login-page {
     width: 100%;
-    height: 100vh; /* El 100% de la altura de la ventana */
+    height: 100%; /* El 100% de la altura de la ventana */
     position: absolute;
     justify-content: center;
     align-items: center;

@@ -16,8 +16,7 @@ import EditSuppliersPage from './pages/EditSuppliersPage.jsx';
 import SalesHistoryPage from './pages/SalesHistoryPage.jsx';
 import MakeReportsPage from './pages/MakeReportsPage.jsx';
 import SecurityQuestionsPages from './pages/SecurityQuestionsPages.jsx';
-
-import Formulario from './pages/Formulario.jsx';
+import RegisterSalepage from './pages/RegisterSalepage.jsx';
 
 
 function App() {
@@ -25,24 +24,24 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LoginPages/>} />         rol: user y admin                                {/*Pagina de iniciar sesion*/}
-          <Route path="/home-cajero" element={<HomeCashierPage/>} />             rol: user                       {/*pagina Inicial del cajero*/}
-          <Route path="/home-admin" element={<HomeAdministratorPage/>} />      rol: admin                      {/*Pagina Inicial del administrador*/}
-          <Route path="/registrar-venta" element={<Formulario/>} />                rol: user y admin               {/*pagina de registrar una venta*/}
-          <Route path="/historial-venta" element={<SalesHistoryPage/>} />             rol: user y admin                     {/* pagina para ver el historial de venta*/}
-          <Route path="/menu" element={<MenuPage/>} />                              rol: admin                    {/*pagina para listar menu*/}
-          <Route path="/menu/actualizar-menu" element={<EditMenuPage/>} />          rol: admin                    {/*pagina para crear el menu*/}
-          <Route path="/provedores" element={<SuppliersPage/>} />                    rol: admin                   {/*pagina para listar un proveedor*/}
-          <Route path="/provedores/actualizar" element={<EditSuppliersPage/>} />     rol: admin                   {/*Pagina para crear proveedor */}
-          <Route path="/cuentas" element={<AccountsPage/>} />                          rol: admin                 {/**/}
-          <Route path="/cuentas/id" element={<EditAccountsPage/>} />                   rol: admin                 {/**/}
-          <Route path="/dashboard" element={<h1>DASHBOARD</h1>} />                    rol: admin                  {/**/}
-          <Route path="/pagos" element={<PaymentsPage/>} />                             rol: admin                {/**/}
-          <Route path="/pagos/historial-pago" element={<PaymentHistoryPage/>} />        rol: admin                {/**/}
-          <Route path="/pagos/realizar-pago" element={<RegisterPaymentPage/>} />        rol: admin                {/**/}
-          <Route path="/inventario" element={<RealEstateInventoriesPage/>} />           rol: admin                {/**/}
-          <Route path="/inventario/actualizar" element={<EditPropertyInventoriesPage/>} />    rol: admin          {/**/}
-          <Route path="/pregunta" element={<SecurityQuestionsPages/>} />                rol: admin                {/**/}
+          <Route path="/" element={<LoginPages/>} />                                                   {/*Pagina de iniciar sesion*/}
+          <Route path="/home-cajero" element={<HomeCashierPage/>} />                                   {/*pagina Inicial del cajero*/}
+          <Route path="/home-admin" element={<HomeAdministratorPage/>} />                              {/*Pagina Inicial del administrador*/}
+          <Route path="/registrar-venta" element={<RegisterSalepage/>} />                                    {/*pagina de registrar una venta*/}
+          <Route path="/historial-venta" element={<SalesHistoryPage/>} />                              {/* pagina para ver el historial de venta*/}
+          <Route path="/menu" element={<MenuPage/>} />                                                 {/*pagina para listar menu*/}
+          <Route path="/menu/registro" element={<EditMenuPage/>} />                             {/*pagina para crear el menu*/}
+          <Route path="/provedores" element={<SuppliersPage/>} />                                      {/*pagina para listar un proveedor*/}
+          <Route path="/provedores/registro" element={<EditSuppliersPage/>} />                       {/*Pagina para crear proveedor */}
+          <Route path="/cuentas" element={<AccountsPage/>} />                                          {/**/}
+          <Route path="/cuentas/registro" element={<EditAccountsPage/>} />                                   {/**/}
+          <Route path="/dashboard" element={<h1>DASHBOARD</h1>} />                                     {/**/}
+          <Route path="/pagos" element={<PaymentsPage/>} />                                            {/**/}
+          <Route path="/pagos/historial-pago" element={<PaymentHistoryPage/>} />                       {/**/}
+          <Route path="/pagos/realizar-pago" element={<RegisterPaymentPage/>} />                       {/**/}
+          <Route path="/inventario" element={<RealEstateInventoriesPage/>} />                          {/**/}
+          <Route path="/inventario/registro" element={<EditPropertyInventoriesPage/>} />             {/**/}
+          <Route path="/pregunta" element={<SecurityQuestionsPages/>} />                               {/**/}
           <Route path="/reporte" element={<MakeReportsPage/>} />   
         </Routes>
       </BrowserRouter>

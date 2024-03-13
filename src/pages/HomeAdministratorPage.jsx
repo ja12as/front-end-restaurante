@@ -17,7 +17,7 @@ function HomeAdministratorPage() {
             <div className="header">
                 <div className="perfil-empleado">
                 <img src={usuario1} alt="img-empleado" />
-                <p>hola-nom-empleado</p>
+                <p>Roboto Condensed</p>
                 </div>
             </div>
             <div className="container-menu">
