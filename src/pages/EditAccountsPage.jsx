@@ -1,84 +1,112 @@
-/*Pantalla: editar Cuentas 
-Lista de cuentas 
-Nombre completo  
-Tipo de documento 
-Numero de documento 
-Teléfono 
-Dirección 
-Correo 
-Contraseña 
-Rol 
-Foto 
-Editar, crear o desactivar cuentas */ 
-
-
-
 
 import { Link } from 'react-router-dom';
 import '../style/RegisterStyle.css';
 import { useEffect, useState } from 'react';
-import axios  from '../api/axios.js';
+import query  from '../api/axios.js';
 
 function EditAccountsPage() {
-    const[nombre, setNombre]= useState('');
-    const[direccion, setDireccion]=useState('');
-    const[correo, setCorreo]= useState('');
-    const[telefono, setTelefono]= useState('');
-    const[rol, setRol]= useState('');
     const[roles, setRoles]= useState([]);
-    const[password, setPassword]= useState('');
-    const[tipoDocumento ,setTipoDocumento]= useState('');
     const[tiposDocumentos ,setTiposDocumentos]= useState([]);
-    const[numeroDocumento, setnumeroDocumento]= useState('');
+
+
 
     useEffect(()=>{
-        axios.get('')
-        .then(response =>{
-            setTiposDocumentos(response.data);
-        })
-        .catch(error=>{
-            console.error('Hubo un error al hacer la peticon GET: Tipo de Documento');
-        });
-        
-    },[]);
 
-    useEffect(()=>{
-        axios.get('')
-        .then(response =>{
-            setRoles(response.data);
-        })
-        .catch(error=>{
-            console.error('Hubo un error al hacer la peticon GET: Tipo de Documento');
-        });
-        
-    },[]);
-
-
-    const handleSubmit = (event) =>{
-        encodeURIComponent.preventDefault();
-
-        const informacionEmpleadoEnviar = {
-            nombre,
-            direccion,
-            correo,
-            telefono,
-            rol,
-            password,
-            tipoDocumento,
-            numeroDocumento,
+        const listarTipoDoccumento = async () => {
+                try {
+                const response = await query.get('/tipos-documentos', {
+                    headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    },
+                });
+                setTiposDocumentos(response.data);
+                } catch (error) {
+                console.error('Error:', error);
+                }
         };
-        axios.post('', informacionEmpleadoEnviar)
-        .then(response =>{
-            console.error('Respuesta de la peticion POST:', response.data);
-        })
-        .catch(error => {
-            console.error('Hubo un error al hacer la peticion POST:', error);
-        });
+
+        const listarRoles = async () => {
+                try {
+                const response = await query.get('/roles', {
+                    headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    },
+                });
+                setRoles(response.data);
+                } catch (error) {
+                console.error('Error:', error);
+                }
+            };
+        listarRoles();
+        listarTipoDoccumento();
+        
+    },[]);
+
+    const [formulario, setFormData] = useState({
+        numeroDocumento: 0,
+        nombreCompleto: "",
+        telefono: 0,
+        direccion: "",
+        correo: "",
+        contrasena: "",
+        rutaFoto: "",
+        idTipoDocumento: "",
+        idRolUsuario: ""
+    })
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        const valorNumerico= name === 'numeroDocumento' || name === 'telefono' ? parseInt(value, 10) : value;
+        setFormData({ ...formulario, [name]: valorNumerico });
     };
 
-    const handleChange = event =>{
-        setTipoDocumento(event.target.value);
-        };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        // 1) Validate that numeroDocumento is a number
+        if (isNaN(formulario.numeroDocumento)) {
+            console.error('numeroDocumento must be a number');
+            return;
+        }
+    
+        // 2) Validate all fields are filled
+        for (let field in formulario) {
+            if (!formulario[field]) {
+                console.error(`Please fill in the ${field}`);
+                return;
+            }
+        }
+        // 5) Validate password length and content
+        if (formulario.contrasena.length < 12 || !/[a-z]/.test(formulario.contrasena) || !/[0-9]/.test(formulario.contrasena)) {
+            console.error('Password must be at least 12 characters long and contain both numbers and letters');
+            return;
+        }
+    
+        // 6) Validate email format
+        if (!/\S+@\S+\.\S+/.test(formulario.correo)) {
+            console.error('Invalid email format');
+            return;
+        }
+    
+        // If all validations pass, send the request
+        try {
+                const response = await query.post('/usuarios/crear', formulario, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+                });
+                if (response.status !== 200) {
+                console.error('Error from backend:', response.status);
+                return;
+                }
+            } catch (error) {
+                console.error('Error sending data:', error);
+        }
+    };
+    
 
     return (
         <div className='div-padre'>
@@ -87,56 +115,61 @@ function EditAccountsPage() {
                 <div className='div-col-1'>
                     <div className='form-group'>
                         <label>Nombre</label>
-                        <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} placeholder='Nombre' />
+                        <input type="text" value={formulario.nombreCompleto} name='nombreCompleto' onChange={handleChange} placeholder='Nombre' />
                     </div>
                     <div className='form-group'>
                         <label>Direccion</label>
-                        <input type="text" value={nombre} onChange={(e) => setDireccion(e.target.value)}  placeholder='Cra cll #'/>
+                        <input type="text" value={formulario.direccion} name='direccion'onChange={handleChange}  placeholder='Cra cll #'/>
                     </div>
                     <div className='form-group'>
                         <label>Correo</label>
-                        <input type="email" value={nombre} onChange={(e) => setCorreo(e.target.value)}  placeholder='usuario@gmail.com'/>
+                        <input type="email" value={formulario.correo} name='correo' onChange={handleChange}  placeholder='usuario@gmail.com'/>
                     </div>
                     <div className='form-group'>
                         <label>Telefono</label>
-                        <input type="email" value={nombre} onChange={(e) => setTelefono(e.target.value)}  placeholder='usuario@gmail.com'/>
+                        <input type="number" value={formulario.telefono} name='telefono' onChange={handleChange}  placeholder='000 000 0000'/>
+                    </div>
+                    <div className='form-group'>
+                        <label>Imagen</label>
+                        <input type="file"accept='.png, .jpg, .jpeg' value={formulario.rutaFoto} name='rutaFoto' onChange={handleChange}  placeholder='Carga tu img'/>
                     </div>
                 </div>
                 <div className='div-col-2'>
+
                     <div className='form-group'>
                         <label>Rol</label>
-                        <select name="tipoDocumento" value={rol} onChange={handleChange}>
+                        <select id='rol' name="idRolUsuario" value={formulario.idRolUsuario}  onChange={handleChange}>
                         <option value="">Seleccione...</option>
                         {roles.map(tipo => (
-                            <option key={tipo.id} value={tipo.id}>{tipo.nombre}</option>
+                            <option key={tipo.idRolUsuario} value={tipo.idRolUsuario}>{tipo.rolUsuario}</option>
                         ))}
                         </select>
                     </div>
                     <div className='form-group'>
                         <label>Password</label>
-                        <input type="password" value={nombre} onChange={(e) => setCorreo(e.target.value)}  placeholder='usuario@gmail.com'/>
+                        <input type="password" value={formulario.contrasena} name='contrasena'onChange={handleChange}  placeholder='**********'/>
                     </div>
                     <div className='form-group'>
                         <label>Tipo de documento</label>
-                        <select name="tipoDocumento" value={tipoDocumento} onChange={handleChange}>
+                        <select id='tipoDocumento' name="idTipoDocumento" value={formulario.idTipoDocumento} onChange={handleChange}>
                         <option value="">Seleccione...</option>
-                        {tiposDocumentos.map(tipo => (
-                            <option key={tipo.id} value={tipo.id}>{tipo.nombre}</option>
+                            {tiposDocumentos.map(tipo => (
+                        <option key={tipo.idTipoDocumento} value={tipo.idTipoDocumento}>{tipo.tipoDocumento}</option>
                         ))}
                         </select>
                     </div>
                     <div className='form-group'>
                         <label>N° de documento</label>
-                        <input type="text" value={nombre} onChange={(e) => setnumeroDocumento(e.target.value)}  placeholder='************'/>
+                        <input type="text" value={formulario.numeroDocumento} name='numeroDocumento' onChange={handleChange}  placeholder='************'/>
                     </div>
                 </div>
                 <div className="botones">
                         <Link to='/cuentas'>
                             <div className="img-medio-admin">
-                                <button type='submit' className='boton 1'>Salir</button>
+                                <button type='submit' className='boton'>Salir</button>
                             </div>
                         </Link>
-                        oo<button type='submit' className='boton 2'>Guardar</button>
+                        <button type="submit" className="boton" >Guardar</button>
                 </div>
             </form>
         </div>

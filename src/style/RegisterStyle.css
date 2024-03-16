@@ -41,7 +41,7 @@
 .form-group input {
     width: calc(100% - 60px); /* Ajusta el ancho de los inputs descontando el padding */
     padding: 15px; /* Añade un padding de 15px a los inputs */
-    margin-right: 30px; /* Añade margen a la derecha de los inputs */
+    margin-right: 20px; /* Añade margen a la derecha de los inputs */
     border-radius: 5px;
     border: 1px solid #ccc;
     box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
@@ -64,7 +64,7 @@
     height: 50px; /* Establece la altura del botón a 90px */
     padding: 15px; /* Añade un padding de 15px al botón */
     border-radius: 5px;
-    margin: 50px 0px 50px 250px;
+    margin: 20px 0px 20px 250px;
 
     border: none;
     background-color: #00ff1e;

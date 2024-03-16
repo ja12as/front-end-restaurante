@@ -1,92 +1,164 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState, useRef } from 'react';
+import ReCAPTCHA from "react-google-recaptcha";
 
-function Ejemplo() {
-    const [nombre, setNombre] = useState('');
-    const [edad, setEdad] = useState('');
-    const [fecha, setFecha] = useState('');
-    const [tipoDocumento, setTipoDocumento] = useState('');
-    const [numeroDocumento, setNumeroDocumento] = useState('');
-    const [correo, setCorreo] = useState('');
-    const [tiposDocumento, setTiposDocumento] = useState([]);
+const SimpleForm = () => {
 
-        useEffect(() => {
-        // Petición GET para obtener los tipos de documento
-        axios.get('https://mi-api.com/tiposDocumento')
-        .then(response => {
-            setTiposDocumento(response.data);
-        })
-        .catch(error => {
-            console.error('Hubo un error al hacer la petición GET:', error);
-        });
-    }, []);
+  const captcha = useRef(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    lastName: '',
+    email: '',
+    password: '',
+    phone: '',
+    address: '',
+    rol: '',
+  });
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+  const [errorMessages, setErrorMessages] = useState({
+    name: '',
+    lastName: '',
+    email: '',
+    password: '',
+    phone: '',
+    address: '',
+  });
 
-        // Petición POST para enviar la información del formulario
-        const infoParaEnviar = {
-        nombre,
-        edad,
-        fecha,
-        tipoDocumento,
-        numeroDocumento,
-        correo,
-        };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-        axios.post('https://mi-api.com/usuarios', infoParaEnviar)
-        .then(response => {
-            console.log('Respuesta de la petición POST:', response.data);
-        })
-        .catch(error => {
-            console.error('Hubo un error al hacer la petición POST:', error);
-        });
-    };
+    // Validar nombre 
+    if (name === 'name') {
+      if (/^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/.test(value)) {
+        setErrorMessages({ ...errorMessages, [name]: '' });
+      } else {
+        setErrorMessages({ ...errorMessages, [name]: 'El nombre contiene caracteres incorrectos.' });
+      }
+    }
+   // Validar apellido
+    if (name === 'lastName') {
+      if (/^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/.test(value)) {
+        setErrorMessages({ ...errorMessages, [name]: '' });
+      } else {
+        setErrorMessages({ ...errorMessages, [name]: 'El apellido contiene caracteres incorrectos.' });
+      }
+    }
+    // Validar correo electrónico
+    if (name === 'email') {
+      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        setErrorMessages({ ...errorMessages, email: '' });
+      } else {
+        setErrorMessages({ ...errorMessages, email: 'Por favor ingrese un correo válido.' });
+      }
+    }
+    // Validar contraseña
+    if (name === 'password') {
+      if (/(?=.[a-z])(?=.[A-Z])/.test(value)) {
+        setErrorMessages({ ...errorMessages, password: '' });
+      } else {
+        setErrorMessages({ ...errorMessages, password: 'La contraseña debe tener al menos una mayúscula y una minúscula.' });
+      }
+    }
+    // Validar longitud y formato del número de teléfono
+    if (name === 'phone') {
+      if (/^3\d{9}$/.test(value)) {
+        setErrorMessages({ ...errorMessages, phone: '' });
+      } else {
+        setErrorMessages({ ...errorMessages, phone: 'El número de teléfono debe empezar en 3 y contener 10 dígitos.' });
+      }
+    }
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-    const handleChange = (event) => {
-        setTipoDocumento(event.target.value);
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    return (
-        <form onSubmit={handleSubmit}>
-        <label>
-            Nombre:
-            <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
-        </label>
-        <br />
-        <label>
-            Edad:
-            <input type="number" value={edad} onChange={(e) => setEdad(e.target.value)} />
-        </label>
-        <br />
-        <label>
-            Fecha de nacimiento:
-            <input type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} />
-        </label>
-        <br />
-        <label>
-            Tipo de Documento:
-            <select name="tipoDocumento" value={tipoDocumento} onChange={handleChange}>
-            <option value="">Seleccione...</option>
-            {tiposDocumento.map(tipo => (
-                <option key={tipo.id} value={tipo.id}>{tipo.nombre}</option>
-            ))}
-            </select>
-        </label>
-        <br />
-        <label>
-            Número de documento:
-            <input type="text" value={numeroDocumento} onChange={(e) => setNumeroDocumento(e.target.value)} />
-        </label>
-        <br />
-        <label>
-            Correo electrónico:
-            <input type="email" value={correo} onChange={(e) => setCorreo(e.target.value)} />
-        </label>
-        <br />
-        <button type="submit">Enviar</button>
-        </form>
-    );
-}
+    const form = e.target;
 
-export default Ejemplo;
+    if (!form.checkValidity()) {
+      alert('Debes completar todos los campos requeridos');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:8080/api/login/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const responseBody = await response.json();
+
+      if (responseBody.idUsers === null) {
+        // Registro exitoso
+        console.log('Datos enviados con éxito al backend.');
+        alert('¡Tu registro fue exitoso! Ya puedes iniciar sesión');
+        window.location.reload(); 
+
+      } else {
+        console.error('Error inesperado en la respuesta del backend:', responseBody);
+        alert('¡Error! Prueba con otro correo!');
+      }
+   
+  } catch (error) {
+    console.error('Error de red:', error);
+  }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className={register ${Object.values(errorMessages).some(error => error) ? 'was-validated' : ''}} id="register" noValidate>
+      <h2>Registrarse</h2>
+
+      <div className="form-group">
+        <label htmlFor="name"></label>
+        <input type="text" name="name" required value={formData.name} placeholder="Nombres" onChange={handleChange} />
+        {errorMessages.name && <div className='error-message'>{errorMessages.name}</div>}
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="lastName"></label>
+        <input type="text" name="lastName" required value={formData.lastName} placeholder="Apellidos" onChange={handleChange} />
+        {errorMessages.lastName && <div className='error-message'>{errorMessages.lastName}</div>}
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="email"></label>
+        <input type="email" name="email" required value={formData.email} placeholder="Correo Electrónico" onChange={handleChange} />
+        {errorMessages.email && <div className='error-message'>{errorMessages.email}</div>}
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="password"></label>
+        <input type="password" name="password" required value={formData.password} placeholder="Contraseña" onChange={handleChange} />
+        {errorMessages.password && <div className='error-message'>{errorMessages.password}</div>}
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="phone"></label>
+        <input type="tel" name="phone" required value={formData.phone} placeholder="Celular" onChange={handleChange} />
+        {errorMessages.phone && <div className='error-message'>{errorMessages.phone}</div>}
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="address"></label>
+        <input type="text" name="address" required value={formData.address} placeholder="Dirección" onChange={handleChange} />
+        {errorMessages.address && <div className='error-message'>{errorMessages.address}</div>}
+      </div>
+
+      <>
+        <ReCAPTCHA
+          ref={captcha}
+          sitekey="6Ld3NnopAAAAAK93yWQ0GWJS1O_x-XgoYKg8rMNp"
+        />
+      </>
+
+      <button type="submit">Registrarse</button>
+    </form>
+  );
+};
+
+export default SimpleForm;

@@ -3,51 +3,61 @@ Lista de inmuebles
 Nombre 
 Descripción  
 Cantidad  */
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
+import query  from '../api/axios.js';
 import { Link } from 'react-router-dom';
 import { DataTable } from 'primereact/datatable';
 import { Column } from "primereact/column";
 import { FilterMatchMode } from 'primereact/api';
 import updateIcon from '../assets/menu.png'; 
+import editIcon  from '../assets/editar.png';
 import { InputText } from 'primereact/inputtext';
 import '../style/Listar.css'
+
 
 function RealEstateInventoriesPage() {
     const [filters, setFilters] = useState({
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     });
+    const [data, setData] = useState([]);
 
-    // Datos de ejemplo para la tabla
-    const data = [
-        { id: 1, nombre: 'Ejemplo 1', descripcion: 'descripcion A', cantidad: '123456789' },
-        { id: 2, nombre: 'Ejemplo 2', descripcion: 'descripcion B', cantidad: '987654321' },
-        { id: 3, nombre: 'Ejemplo 3', descripcion: 'descripcion C', cantidad: '123456789' },
-        { id: 4, nombre: 'Ejemplo 4', descripcion: 'descripcion D', cantidad: '987654321' },
-        { id: 5, nombre: 'Ejemplo 5', descripcion: 'descripcion E', cantidad: '123456789' },
-        { id: 6, nombre: 'Ejemplo 6', descripcion: 'descripcion F', cantidad: '987654321' },
-        { id: 7, nombre: 'Ejemplo 7', descripcion: 'descripcion G', cantidad: '123456789' },
-        { id: 8, nombre: 'Ejemplo 8', descripcion: 'descripcion H', cantidad: '987654321' },
-        { id: 9, nombre: 'Ejemplo 9', descripcion: 'descripcion J', cantidad: '123456789' },
-        { id: 10, nombre: 'Ejemplo 10', descripcion: 'descripcion K', cantidad: '987654321' },
-        { id: 11, nombre: 'Ejemplo 11', descripcion: 'descripcion L', cantidad: '123456789' },
-        { id: 12, nombre: 'Ejemplo 12', descripcion: 'descripcion M', cantidad: '987654321' },
-        { id: 13, nombre: 'Ejemplo 13', descripcion: 'descripcion N', cantidad: '123456789' },
-        { id: 14, nombre: 'Ejemplo 14', descripcion: 'descripcion O', cantidad: '987654321' },
-        // Agregar más objetos de datos según sea necesario
-    ];
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await query.get('/inventario-inmueble', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+                });
+                setData(response.data);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            };
+        
+        fetchData(); 
+    }, []);
     const accionesBodyTemplate = () => {
         return (
-            <Link to='/inventario/actualizar'>
+            <Link to='/inventario/registro'>
                 <img src={updateIcon} alt='Actualizar' width='20' height='20' />
             </Link>
         );
     };
-
+    const editarBodyTemplate = (rowData) => {
+        return (
+            <Link to={`/menu/registro/${rowData.idMenu}`}>
+                <img src={editIcon} alt='Editar' width='20' height='20' />
+            </Link>
+        );
+    };
+    
     return (
         <div className='container'>
             <div className='wrapper bg-white' style={{ maxWidth: "1300px" }}>
                 <div className='h2 text-center'>
-                    Inventarios inmuebles
+                    Inventario Inmueble
                 </div>
                 <div className='form-group py-2'>
                     <div className='input-field'>
@@ -56,20 +66,24 @@ function RealEstateInventoriesPage() {
                                     setFilters({
                                         global: { value: e.target.value, matchMode: 'contains' },
                                     })}
-                                placeholder='Buscar Inmueble'
+                                placeholder='Buscar Inventario o Inmueble'
                         />
                     </div>
                 </div>
-                <DataTable value={data} sortMode='multiple' filters={filters} paginator rows={10} totalRecords={data.length}>
-                    <Column field='id' header='Identificacion' sortable />
-                    <Column field='nombre' header='Nombre' sortable />
-                    <Column field='descripcion' header='Descripcion' sortable />
-                    <Column field='cantidad' header='cantidad' sortable />
-                    <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
-                </DataTable>
-
+                <div className='dtable'>
+                    <DataTable value={data} sortMode='multiple' filters={filters} paginator rows={10} totalRecords={data.length}>
+                        <Column field='idInventarioInmueble' header='Cod' sortable />
+                        <Column field='nombreInmueble' header='Nombre' sortable />
+                        <Column field='descripcionInmueble' header='Descripción' sortable />
+                        <Column field='cantidadInmueble' header='Cantidad' sortable />
+                        <Column field='fechaRegistroInmueble' header='Fecha' sortable />
+                        <Column field='numeroDocumento.nombreCompleto' header='usuario' sortable />
+                        <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
+                        <Column field='editar' header='Editar' body={editarBodyTemplate} />
+                    </DataTable>
+                </div>
                 <div className='bbutton-container'>
-                    <Link to='/inventario/actualizar'>
+                    <Link to='/inventario/registro'>
                         <div className='text-center'>
                             <button className='btn'>
                                 Crear Inventario
@@ -84,7 +98,6 @@ function RealEstateInventoriesPage() {
                         </div>
                     </Link>
                 </div>
-                
             </div>
         </div>
     );
