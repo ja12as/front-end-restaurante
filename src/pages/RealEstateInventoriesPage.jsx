@@ -10,6 +10,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from "primereact/column";
 import { FilterMatchMode } from 'primereact/api';
 import updateIcon from '../assets/menu.png'; 
+import editIcon  from '../assets/editar.png';
 import { InputText } from 'primereact/inputtext';
 import '../style/Listar.css'
 
@@ -21,16 +22,22 @@ function RealEstateInventoriesPage() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        query.get('/inventario-inmueble')
-            .then(response => {
+        const fetchData = async () => {
+            try {
+                const response = await query.get('/inventario-inmueble', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+                });
                 setData(response.data);
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('Error:', error);
-            });
+            }
+            };
+        
+        fetchData(); 
     }, []);
-    
-
     const accionesBodyTemplate = () => {
         return (
             <Link to='/inventario/registro'>
@@ -38,6 +45,14 @@ function RealEstateInventoriesPage() {
             </Link>
         );
     };
+    const editarBodyTemplate = (rowData) => {
+        return (
+            <Link to={`/menu/registro/${rowData.idMenu}`}>
+                <img src={editIcon} alt='Editar' width='20' height='20' />
+            </Link>
+        );
+    };
+    
     return (
         <div className='container'>
             <div className='wrapper bg-white' style={{ maxWidth: "1300px" }}>
@@ -55,15 +70,18 @@ function RealEstateInventoriesPage() {
                         />
                     </div>
                 </div>
-                <DataTable value={data} sortMode='multiple' filters={filters} paginator rows={10} totalRecords={data.length}>
-                    <Column field='idInventarioInmueble' header='Cod' sortable />
-                    <Column field='nombreInmueble' header='Nombre' sortable />
-                    <Column field='descripcionInmueble' header='Descripción' sortable />
-                    <Column field='cantidadInmueble' header='Cantidad' sortable />
-                    <Column field='fechaRegistroInmueble' header='Fecha' sortable />
-                    <Column field='numeroDocumento.nombreCompleto' header='usuario' sortable />
-                    <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
-                </DataTable>
+                <div className='dtable'>
+                    <DataTable value={data} sortMode='multiple' filters={filters} paginator rows={10} totalRecords={data.length}>
+                        <Column field='idInventarioInmueble' header='Cod' sortable />
+                        <Column field='nombreInmueble' header='Nombre' sortable />
+                        <Column field='descripcionInmueble' header='Descripción' sortable />
+                        <Column field='cantidadInmueble' header='Cantidad' sortable />
+                        <Column field='fechaRegistroInmueble' header='Fecha' sortable />
+                        <Column field='numeroDocumento.nombreCompleto' header='usuario' sortable />
+                        <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
+                        <Column field='editar' header='Editar' body={editarBodyTemplate} />
+                    </DataTable>
+                </div>
                 <div className='bbutton-container'>
                     <Link to='/inventario/registro'>
                         <div className='text-center'>

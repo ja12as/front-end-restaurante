@@ -11,28 +11,38 @@ function EditAccountsPage() {
 
 
     useEffect(()=>{
-        const listarTipoDoccumento= async () => {
-            try {
-                const respuestaTipoDoccumento = await query.get('/tipos-documentos');
-                setTiposDocumentos(respuestaTipoDoccumento.data);
-            } catch (error) {
-                console.error('Error al obtener los tipos de documento:', error);
-            }
+
+        const listarTipoDoccumento = async () => {
+                try {
+                const response = await query.get('/tipos-documentos', {
+                    headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    },
+                });
+                setTiposDocumentos(response.data);
+                } catch (error) {
+                console.error('Error:', error);
+                }
         };
 
-        const listarRoles= async () => {
-            try {
-                const respuestaRoles = await query.get('/roles');
-                setRoles(respuestaRoles.data);
-            } catch (error) {
-                console.error('Error al obtener los roles:', error);
-            }
-        };
+        const listarRoles = async () => {
+                try {
+                const response = await query.get('/roles', {
+                    headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    },
+                });
+                setRoles(response.data);
+                } catch (error) {
+                console.error('Error:', error);
+                }
+            };
         listarRoles();
         listarTipoDoccumento();
         
     },[]);
-
 
     const [formulario, setFormData] = useState({
         numeroDocumento: 0,
@@ -82,17 +92,19 @@ function EditAccountsPage() {
     
         // If all validations pass, send the request
         try {
-            const response = await query.post('/usuarios/crear', formulario);
-            // 4) Validate the backend returned 200
-            if (response.status !== 200) {
+                const response = await query.post('/usuarios/crear', formulario, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+                });
+                if (response.status !== 200) {
                 console.error('Error from backend:', response.status);
                 return;
-            }
-            console.log(response.data); // Handle the backend response here
-        } catch (error) {
-            console.error('Error sending data:', error);
+                }
+            } catch (error) {
+                console.error('Error sending data:', error);
         }
-
     };
     
 

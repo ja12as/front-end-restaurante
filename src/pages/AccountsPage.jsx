@@ -16,6 +16,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from "primereact/column";
 import { FilterMatchMode } from 'primereact/api';
 import updateIcon from '../assets/menu.png'; 
+import editIcon  from '../assets/editar.png';
 import { InputText } from 'primereact/inputtext';
 import '../style/Listar.css'
 
@@ -27,15 +28,21 @@ function AccountsPage() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        query.get('/usuarios')
-            .then(response => {
+        const fetchData = async () => {
+            try {
+                const response = await query.get('/usuarios', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+                });
                 setData(response.data);
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('Error:', error);
-            });
+            }
+        };
+        fetchData(); 
     }, []);
-    
 
     const accionesBodyTemplate = () => {
         return (
@@ -44,6 +51,14 @@ function AccountsPage() {
             </Link>
         );
     };
+    const editarBodyTemplate = (rowData) => {
+        return (
+            <Link to={`/menu/registro/${rowData.idMenu}`}>
+                <img src={editIcon} alt='Editar' width='20' height='20' />
+            </Link>
+        );
+    };
+    
     return (
         <div className='container'>
             <div className='wrapper bg-white' style={{ maxWidth: "1300px" }}>
@@ -61,16 +76,19 @@ function AccountsPage() {
                         />
                     </div>
                 </div>
-                <DataTable value={data} sortMode='multiple' filters={filters} paginator rows={10} totalRecords={data.length}>
-                    <Column field='numeroDocumento' header='Identificacion' sortable />
-                    <Column field='nombreCompleto' header='Nombre' sortable />
-                    <Column field='idTipoDocumento.tipoDocumento' header='T Documento' sortable />
-                    <Column field='telefono' header='Telefono' sortable />
-                    <Column field='direccion' header='Direccion' sortable />
-                    <Column field='correo' header='Correo' sortable />
-                    <Column field='rolUsuario.rolUsuario' header='Rol' sortable />
-                    <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
-                </DataTable>
+                <div className='dtable'>
+                    <DataTable value={data} sortMode='multiple' filters={filters} paginator rows={10} totalRecords={data.length} scrollable scrollHeight="200px">
+                        <Column field='numeroDocumento' header='Identificacion' sortable />
+                        <Column field='nombreCompleto' header='Nombre' sortable />
+                        <Column field='idTipoDocumento.tipoDocumento' header='T Documento' sortable />
+                        <Column field='telefono' header='Telefono' sortable />
+                        <Column field='direccion' header='Direccion' sortable />
+                        <Column field='correo' header='Correo' sortable />
+                        <Column field='rolUsuario.rolUsuario' header='Rol' sortable />
+                        <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
+                        <Column field='editar' header='Editar' body={editarBodyTemplate} />
+                    </DataTable>
+                </div>
                 <div className='bbutton-container'>
                     <Link to='/cuentas/registro'>
                         <div className='text-center'>

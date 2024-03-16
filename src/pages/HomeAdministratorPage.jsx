@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import '../style/home.css';
 import usuario1 from '../assets/usuario1.png';
 import imgRegistrocompra from '../assets/registarCompras.png';
-import imgHistorialFactura from '../assets/historialFactura.png';
 import imgMenu from '../assets/menu1.png';
 import imgPerfil from '../assets/perfil2.png';
 import imgInventario from '../assets/inventario.png'
@@ -12,6 +11,11 @@ import imgProveedor from '../assets/proveedor.png';
 
 
 function HomeAdministratorPage() {
+    const cerrarSesion  = () =>{
+        localStorage.removeItem("token");
+        localStorage.removeItem("rol");
+    }
+    
     return (
         <div className="container">
             <div className="header">
@@ -23,20 +27,12 @@ function HomeAdministratorPage() {
             <div className="container-menu">
                 
                 <div className="main-content-adm">
-                    <Link to='/registrar-venta' className="link-sin-subrayado">
+                    <Link to='/home-venta' className="link-sin-subrayado">
                         <div className="div-logo">
                             <div className="img-wrapper">
                                 <img src={imgRegistrocompra} alt="Registro-venta" />
                             </div>
-                            <p>Registrar venta</p>
-                        </div>
-                    </Link>
-                    <Link to='/historial-venta' className="link-sin-subrayado">
-                        <div className="div-logo">
-                        <div className="img-wrapper">
-                            <img src={imgHistorialFactura} alt="Historial-factura" />
-                            </div>
-                            <p>Historial venta</p>
+                            <p>Venta</p>
                         </div>
                     </Link>
                     <Link to='/menu'  className="link-sin-subrayado">
@@ -86,7 +82,7 @@ function HomeAdministratorPage() {
             </div>
                     <Link to='/'>
                         <div className='bbtoon'>
-                            <button class="ingresar" type='submit'>Cerrar Sesion</button>
+                            <button class="ingresar" type='submit' onClick={cerrarSesion}>Cerrar Sesion</button>
                         </div>
                     </Link>
         </div>

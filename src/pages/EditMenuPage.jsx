@@ -6,15 +6,15 @@ Descripción
 Precio 
 Editar, crear o desactivar productos  */
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import '../style/RegisterStyle.css';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from 'react';
 import query  from '../api/axios.js';
 
+
 function EditMenuPage() {
-
     const[categorias, setCategorias] = useState([]);
-
     useEffect(() => {
         const listarCategoria = async () => {
             try {
@@ -26,7 +26,6 @@ function EditMenuPage() {
         };
         listarCategoria();
     },[]);
-    
     const [formularioMenu, setFormularioMenu]= useState({
         idMenu:uuidv4(),
         nombreMenu:"",
@@ -34,35 +33,60 @@ function EditMenuPage() {
         descripcionMenu:"",
         precioMenu:0
     })
-    
     const handleChange = (e) => {
         const { name, value } = e.target;
         const valorNumerico =  name === 'numeroProveedor' || name === 'numeroEmpresa'? parseInt(value, 10) : value;
         setFormularioMenu({ ...formularioMenu, [name]: valorNumerico });
     };
-    
-    
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
-        const { idMenu, nombreMenu, idCategoriaMenu, descripcionMenu, precioMenu } = formularioMenu;
-    
-        if (!idMenu || !nombreMenu || !idCategoriaMenu || !descripcionMenu || !precioMenu) {
-            console.error('Todos los campos deben estar llenos');
+        const {nombreMenu, idCategoriaMenu, descripcionMenu, precioMenu } = formularioMenu;
+        
+        if (!nombreMenu) {
+            alert('El campo Nombre debe estar lleno');
             return;
         }
-    
+        if (!idCategoriaMenu) {
+            alert('El campo Categoría debe estar lleno');
+            return;
+        }
+        if (!descripcionMenu) {
+            alert('El campo Descripción debe estar lleno');
+            return;
+        }
+        if (!precioMenu) {
+            alert('El campo Precio debe estar lleno');
+            return;
+        }
         try {
             const response = await  query.post('/menu', formularioMenu);
             console.log(response.data);
+            alert('El formulario se ha guardado exitosamente');
+            setFormularioMenu({
+                idMenu: uuidv4(),
+                nombreMenu: "",
+                idCategoriaMenu: "",
+                descripcionMenu: "",
+                precioMenu: 0
+            });
         } catch (error) {
             console.error('Error al enviar los datos al formulario de menu', error);
         }
     };
-    
 
+    const { idMenu } = useParams();
+    useEffect(() => {
+        const fetchMenu = async () => {
+            try {
+                const response = await query.get(`/menu${idMenu}`);
+                setFormularioMenu(response.data);
+            } catch (error) {
+                console.error('Error al obtener los datos del menú', error);
+            }
+        };
 
-
+        fetchMenu();
+    }, [idMenu]);
     return (
         <div className='div-padre'>
             <h1 className='titulo'>Registro de Menu</h1>
@@ -104,5 +128,4 @@ function EditMenuPage() {
         </div>
     )
 }
-
 export default EditMenuPage

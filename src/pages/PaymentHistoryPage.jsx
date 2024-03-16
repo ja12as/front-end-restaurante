@@ -13,6 +13,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from "primereact/column";
 import { FilterMatchMode } from 'primereact/api';
 import updateIcon from '../assets/menu.png'; 
+import editIcon  from '../assets/editar.png';
 import { InputText } from 'primereact/inputtext';
 import '../style/Listar.css'
 
@@ -22,17 +23,24 @@ function PaymentHistoryPage() {
     });
     const [data, setData] = useState([]);
 
-    useEffect(() => {
-        query.get('/pago-usuario')
-            .then(response => {
-                setData(response.data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }, []);
     
-
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await query.get('/pago-usuario', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+                });
+                setData(response.data);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            };
+        
+        fetchData();
+    }, []);
     const accionesBodyTemplate = () => {
         return (
             <Link to='/pagos/realizar-pago'>
@@ -40,6 +48,14 @@ function PaymentHistoryPage() {
             </Link>
         );
     };
+    const editarBodyTemplate = (rowData) => {
+        return (
+            <Link to={`/menu/registro/${rowData.idMenu}`}>
+                <img src={editIcon} alt='Editar' width='20' height='20' />
+            </Link>
+        );
+    };
+    
     return (
         <div className='container'>
             <div className='wrapper bg-white' style={{ maxWidth: "1300px" }}>
@@ -57,15 +73,18 @@ function PaymentHistoryPage() {
                         />
                     </div>
                 </div>
-                <DataTable value={data} sortMode='multiple' filters={filters} paginator rows={10} totalRecords={data.length}>
-                    <Column field='idPagoUsuario' header='Cod' sortable />
-                    <Column field='fechaPago' header='AAAA-MM-DD-HORA' sortable />
-                    <Column field='valorPagado.tipoDocumento' header='Valor Pagado' sortable />
-                    <Column field='idMedioPago.descripcionTipoPago' header='Tipo Pago' sortable />
-                    <Column field='numeroDocumento.nombreCompleto' header='Cajero' sortable />
-                    <Column field='descripcionPago' header='Descripcion' sortable />
-                    <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
-                </DataTable>
+                <div className='dtable'>
+                    <DataTable value={data} sortMode='multiple' filters={filters} paginator rows={10} totalRecords={data.length}>
+                        <Column field='idPagoUsuario' header='Cod' sortable />
+                        <Column field='fechaPago' header='AAAA-MM-DD-HORA' sortable />
+                        <Column field='valorPagado' header='Valor Pagado' sortable />
+                        <Column field='descripcionTipoPago' header='Descripción' sortable />
+                        <Column field='numeroDocumento.nombreCompleto' header='Cajero' sortable />
+                        <Column field='idMedioPago.descripcionTipoPago' header='Tipo de Pago' sortable />
+                        <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
+                        <Column field='editar' header='Editar' body={editarBodyTemplate} />
+                    </DataTable>
+                </div>
                 <div className='boton-historia'>
                     <Link to='/pagos/realizar-pago'>
                         <div className='text-center my-3'>

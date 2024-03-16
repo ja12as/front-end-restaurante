@@ -11,7 +11,8 @@ import { Link } from 'react-router-dom';
 import { DataTable } from 'primereact/datatable';
 import { Column } from "primereact/column";
 import { FilterMatchMode } from 'primereact/api';
-import updateIcon from '../assets/menu.png'; 
+import updateIcon  from '../assets/menu.png'; 
+import editIcon  from '../assets/editar.png';
 import { InputText } from 'primereact/inputtext';
 import '../style/Listar.css'
 
@@ -24,16 +25,25 @@ function MenuPage() {
     });
     const [data, setData] = useState([]);
 
-    useEffect(() => {
-        query.get('/menu')
-            .then(response => {
-                setData(response.data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }, []);
+
     
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await query.get('/menu', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+                });
+                setData(response.data);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            };
+        
+        fetchData(); 
+    }, []);
 
     const accionesBodyTemplate = () => {
         return (
@@ -42,6 +52,15 @@ function MenuPage() {
             </Link>
         );
     };
+    const editarBodyTemplate = (rowData) => {
+        return (
+            <Link to={`/menu/registro/${rowData.idMenu}`}>
+                <img src={editIcon} alt='Editar' width='20' height='20' />
+            </Link>
+        );
+    };
+    
+    
     return (
         <div className='container'>
             <div className='wrapper bg-white' style={{ maxWidth: "1300px" }}>
@@ -59,14 +78,17 @@ function MenuPage() {
                         />
                     </div>
                 </div>
-                <DataTable value={data} sortMode='multiple' filters={filters} paginator rows={8} totalRecords={data.length}>
-                    <Column field='idMenu' header='Identificacion' sortable />
-                    <Column field='nombreMenu' header='Nombre' sortable />
-                    <Column field='descripcionMenu' header='Descripción' sortable />
-                    <Column field='precioMenu' header='valor' sortable />
-                    <Column field='idCategoriaMenu.nombreCategoria' header='categoria' sortable />
-                    <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
-                </DataTable>
+                <div className='dtable'>
+                    <DataTable value={data} sortMode='multiple' filters={filters} paginator rows={8} totalRecords={data.length}>
+                        <Column field='idMenu' header='Identificacion' sortable />
+                        <Column field='nombreMenu' header='Nombre' sortable />
+                        <Column field='descripcionMenu' header='Descripción' sortable />
+                        <Column field='precioMenu' header='valor' sortable />
+                        <Column field='idCategoriaMenu.nombreCategoria' header='categoria' sortable />
+                        <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
+                        <Column field='editar' header='Editar' body={editarBodyTemplate} />
+                    </DataTable>
+                </div>
                 <div className='bbutton-container'>
                     <Link to='/menu/registro'>
                         <div className='text-center'>

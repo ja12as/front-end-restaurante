@@ -1,257 +1,164 @@
-import { Link } from "react-router-dom";
-import "../style/RegisterStyle.css";
-import { useState } from "react";
-import query from "../api/axios.js";
-import { v4 as uuidv4 } from "uuid";
+import React, { useState, useRef } from 'react';
+import ReCAPTCHA from "react-google-recaptcha";
 
-function Ejemplo() {
+const SimpleForm = () => {
 
-    //creo una constante que me va guardar los errores que existan(campos-vacios,correo mal escrito etc)
-    const [errorsProveedor, setErrorsProveedor] = useState({});
-    const [formularioProveedor, setFormularioProveedor] = useState({
-        idProveedor: uuidv4(),
-        nombreProveedor: "",
-        numeroProveedor: 0,
-        correoProveedor: "",
-        nombreEmpresa: "",
-        numeroEmpresa: 0,
-        correoEmpresa: "",
-        descripcionProducto: "",
+  const captcha = useRef(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    lastName: '',
+    email: '',
+    password: '',
+    phone: '',
+    address: '',
+    rol: '',
+  });
+
+  const [errorMessages, setErrorMessages] = useState({
+    name: '',
+    lastName: '',
+    email: '',
+    password: '',
+    phone: '',
+    address: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    // Validar nombre 
+    if (name === 'name') {
+      if (/^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/.test(value)) {
+        setErrorMessages({ ...errorMessages, [name]: '' });
+      } else {
+        setErrorMessages({ ...errorMessages, [name]: 'El nombre contiene caracteres incorrectos.' });
+      }
+    }
+   // Validar apellido
+    if (name === 'lastName') {
+      if (/^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/.test(value)) {
+        setErrorMessages({ ...errorMessages, [name]: '' });
+      } else {
+        setErrorMessages({ ...errorMessages, [name]: 'El apellido contiene caracteres incorrectos.' });
+      }
+    }
+    // Validar correo electrónico
+    if (name === 'email') {
+      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        setErrorMessages({ ...errorMessages, email: '' });
+      } else {
+        setErrorMessages({ ...errorMessages, email: 'Por favor ingrese un correo válido.' });
+      }
+    }
+    // Validar contraseña
+    if (name === 'password') {
+      if (/(?=.[a-z])(?=.[A-Z])/.test(value)) {
+        setErrorMessages({ ...errorMessages, password: '' });
+      } else {
+        setErrorMessages({ ...errorMessages, password: 'La contraseña debe tener al menos una mayúscula y una minúscula.' });
+      }
+    }
+    // Validar longitud y formato del número de teléfono
+    if (name === 'phone') {
+      if (/^3\d{9}$/.test(value)) {
+        setErrorMessages({ ...errorMessages, phone: '' });
+      } else {
+        setErrorMessages({ ...errorMessages, phone: 'El número de teléfono debe empezar en 3 y contener 10 dígitos.' });
+      }
+    }
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
     });
+  };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        const valorNumeri =
-        name === "numeroProveedor" || name === "numeroEmpresa"
-            ? parseInt(value, 10)
-            : value;
-        setFormularioProveedor({ ...formularioProveedor, [name]: valorNumeri });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    const form = e.target;
 
-            //Para validar sintaxis del correo
-        if (name === "correoProveedor" || name === "correoEmpresa") {
-        if (!/\S+@\S+\.\S+/.test(value)) {
-            setErrorsProveedor({
-            ...errorsProveedor,
-            [name]: "Por favor, ingresa un correo electrónico válido",
-            });
-        } else {
-            setErrorsProveedor({ ...errorsProveedor, [name]: "" });
-        }
-        } else {
+    if (!form.checkValidity()) {
+      alert('Debes completar todos los campos requeridos');
+      return;
+    }
 
-            //trim es un metodo para validar que los campos no esten vacios
-        if (value.trim() === "") {
-            setErrorsProveedor({
-            ...errorsProveedor,
-            [name]: "Este campo es requerido",
-            });
-        } else {
-            setErrorsProveedor({ ...errorsProveedor, [name]: "" });
-        }
-        }
-    };
+    try {
+      const response = await fetch('http://localhost:8080/api/login/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+      const responseBody = await response.json();
 
-        // aqui  Se valida si hay errores en errorsProveedor y si hay algun error no deja enviar 
-        // si no hay error pues por ende se enviara con exito jajaja
-        const hayErrores = Object.values(errorsProveedor).some(
-        (error) => error !== ""
-        );
-        if (hayErrores) {
-        
-        return;
-        }
+      if (responseBody.idUsers === null) {
+        // Registro exitoso
+        console.log('Datos enviados con éxito al backend.');
+        alert('¡Tu registro fue exitoso! Ya puedes iniciar sesión');
+        window.location.reload(); 
 
-        try {
-        const response = await query.post(
-            "/proveedores/crear",
-            formularioProveedor
-        );
-        console.log(response.data); // Para manejar la respuesta del backend aquí
+      } else {
+        console.error('Error inesperado en la respuesta del backend:', responseBody);
+        alert('¡Error! Prueba con otro correo!');
+      }
+   
+  } catch (error) {
+    console.error('Error de red:', error);
+  }
+  };
 
+  return (
+    <form onSubmit={handleSubmit} className={register ${Object.values(errorMessages).some(error => error) ? 'was-validated' : ''}} id="register" noValidate>
+      <h2>Registrarse</h2>
 
-        // Limpiar los campos del formulario
-        setFormularioProveedor({
-            idProveedor: uuidv4(),
-            nombreProveedor: "",
-            numeroProveedor: 0,
-            correoProveedor: "",
-            nombreEmpresa: "",
-            numeroEmpresa: 0,
-            correoEmpresa: "",
-            descripcionProducto: "",
-        });
+      <div className="form-group">
+        <label htmlFor="name"></label>
+        <input type="text" name="name" required value={formData.name} placeholder="Nombres" onChange={handleChange} />
+        {errorMessages.name && <div className='error-message'>{errorMessages.name}</div>}
+      </div>
 
-        // Reiniciar errores
-        setErrorsProveedor({});
-        alert("Los datos se han enviado con éxito");
-        } catch (error) {
-        console.error(
-            "Error al enviar los datos al formulario de proveedores",
-            error
-        );
-        }
-    };
+      <div className="form-group">
+        <label htmlFor="lastName"></label>
+        <input type="text" name="lastName" required value={formData.lastName} placeholder="Apellidos" onChange={handleChange} />
+        {errorMessages.lastName && <div className='error-message'>{errorMessages.lastName}</div>}
+      </div>
 
-    // cree el evento onClick y en si faltan campos por llenar mando un alerte 
-    const handleGuardar = (e) => {
-        e.preventDefault();
+      <div className="form-group">
+        <label htmlFor="email"></label>
+        <input type="email" name="email" required value={formData.email} placeholder="Correo Electrónico" onChange={handleChange} />
+        {errorMessages.email && <div className='error-message'>{errorMessages.email}</div>}
+      </div>
 
-        // Verificar si hay campos vacíos
-        const camposVacios = Object.values(formularioProveedor).some(
-        (value) => value === "" || value === 0
-        );
+      <div className="form-group">
+        <label htmlFor="password"></label>
+        <input type="password" name="password" required value={formData.password} placeholder="Contraseña" onChange={handleChange} />
+        {errorMessages.password && <div className='error-message'>{errorMessages.password}</div>}
+      </div>
 
-        if (camposVacios) {
-        // Mostrar alerta si hay campos vacíos
-        alert("Por favor, diligencie todos los campos");
-        return;
-        }
+      <div className="form-group">
+        <label htmlFor="phone"></label>
+        <input type="tel" name="phone" required value={formData.phone} placeholder="Celular" onChange={handleChange} />
+        {errorMessages.phone && <div className='error-message'>{errorMessages.phone}</div>}
+      </div>
 
-        // Si no hay campos vacíos, continuo con el envío del formulario
-        handleSubmit(e);
-    };
+      <div className="form-group">
+        <label htmlFor="address"></label>
+        <input type="text" name="address" required value={formData.address} placeholder="Dirección" onChange={handleChange} />
+        {errorMessages.address && <div className='error-message'>{errorMessages.address}</div>}
+      </div>
 
-    return (
-        <div className="div-padre">
-        <h1 className="titulo">Registro de Proveedores</h1>
-        <form onSubmit={handleSubmit} className="formulario">
-            <div className="div-col-1">
-            <div className="form-group">
-                <label>Nombre proveedor </label>
-                <input
-                type="text"
-                value={formularioProveedor.nombreProveedor}
-                name="nombreProveedor"
-                onChange={handleChange}
-                placeholder="nombre proveedor"
-                />
-            
-                {//esta es una expresion condicional de javaScript
-                //me evalua si hay algun error dentro del objeto errorsPro.nombrePro
-                //si hay error se muestra con el span 
-                errorsProveedor.nombreProveedor && (
-                <span className="error-message">
-                    {errorsProveedor.nombreProveedor}
-                </span>
-                )}
-            </div>
+      <>
+        <ReCAPTCHA
+          ref={captcha}
+          sitekey="6Ld3NnopAAAAAK93yWQ0GWJS1O_x-XgoYKg8rMNp"
+        />
+      </>
 
-            <div className="form-group">
-                <label>Numero proveedor</label>
-                <input
-                type="tel"
-                value={formularioProveedor.numeroProveedor}
-                name="numeroProveedor"
-                onChange={handleChange}
-                placeholder="numero proveedor  "
-                />
-                {errorsProveedor.numeroProveedor && (
-                <span className="error-message">
-                    {errorsProveedor.numeroProveedor}
-                </span>
-                )}
-            </div>
-            <div className="form-group">
-                <label>Correo proveedor</label>
-                <input
-                type="email"
-                value={formularioProveedor.correoProveedor}
-                name="correoProveedor"
-                onChange={handleChange}
-                placeholder="correo proveedor "
-                />
-                {errorsProveedor.correoProveedor && (
-                <span className="error-message">
-                    {errorsProveedor.correoProveedor}
-                </span>
-                )}
-            </div>
+      <button type="submit">Registrarse</button>
+    </form>
+  );
+};
 
-            <div className="form-group">
-                <label>Nombre empresa </label>
-                <input
-                type="text"
-                value={formularioProveedor.nombreEmpresa}
-                name="nombreEmpresa"
-                onChange={handleChange}
-                placeholder="Nombre Empresa"
-                />
-                {errorsProveedor.nombreEmpresa && (
-                <span className="error-message">
-                    {errorsProveedor.nombreEmpresa}
-                </span>
-                )}
-            </div>
-            <div className="form-group">
-                <label>Numero empresa</label>
-                <input
-                type="tel"
-                value={formularioProveedor.numeroEmpresa}
-                name="numeroEmpresa"
-                onChange={handleChange}
-                placeholder="Numero empresa"
-                />
-                {errorsProveedor.numeroEmpresa && (
-                <span className="error-message">
-                    {errorsProveedor.numeroEmpresa}
-                </span>
-                )}
-            </div>
-            <div className="form-group">
-                <label>Correo Empresa</label>
-                <input
-                type="email"
-                value={formularioProveedor.correoEmpresa}
-                name="correoEmpresa"
-                onChange={handleChange}
-                placeholder="correo Empresa"
-                />
-                {errorsProveedor.correoEmpresa && (
-                <span className="error-message">
-                    {errorsProveedor.correoEmpresa}
-                </span>
-                )}
-            </div>
-
-            <div className="form-group">
-                <label>Descripción Producto</label>
-                <input
-                type="text"
-                value={formularioProveedor.descripcionProducto}
-                name="descripcionProducto"
-                onChange={handleChange}
-                placeholder="descripcion Producto"
-                />
-                {errorsProveedor.descripcionProducto && (
-                <span className="error-message">
-                    {errorsProveedor.descripcionProducto}
-                </span>
-                )}
-            </div>
-            </div>
-
-            <div className="botones">
-            <Link to="/provedores">
-                <div className="img-medio-admin">
-                <button type="submit" className="boton 1">
-                    Salir
-                </button>
-                </div>
-            </Link>
-            <div className="img-medio-admin">
-                                                                                
-                <button type="submit" className="boton 2" onClick={handleGuardar}>
-                Guardar
-                </button>
-            </div>
-            </div>
-        </form>
-        </div>
-    );
-}
-
-export default Ejemplo;
+export default SimpleForm;
