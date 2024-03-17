@@ -45,12 +45,21 @@ function EditPropertyInventoriesPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
         try {
-            const response = await query.post('/inventario-inmueble/crear' , formularioInventario);
-            console.log(response.data);
+            const response = await query.post('/inventario-inmueble/crear' , formularioInventario, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            });
+            if (response.status !== 200) {
+            console.error('Error from backend:', response.status);
+            return;
+            }
         } catch (error) {
-            console.error('Error al enviar los datos del inventario', error);
-        }
+            console.error('Error sending data:', error);
+    }
     };
 
     return (
