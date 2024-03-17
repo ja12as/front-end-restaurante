@@ -226,7 +226,7 @@ function RegisterSalepage() {
                         </div>
                     <div className='botton'>
                         <botton type='submit' className='btn-venta' onClick={handleSubmit}>Generar Venta</botton>
-                        <Link to='/home-venta'>
+                        <Link to='/home-admin'>
                             <div className='btn-venta'>
                                 <button>
                                     salir

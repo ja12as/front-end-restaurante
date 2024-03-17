@@ -16,8 +16,8 @@ import EditSuppliersPage from './pages/EditSuppliersPage.jsx';
 import SalesHistoryPage from './pages/SalesHistoryPage.jsx';
 import MakeReportsPage from './pages/MakeReportsPage.jsx';
 import RegisterSalepage from './pages/RegisterSalepage.jsx';
-import SaleDetailPage from './pages/SaleDetailPage.jsx';
-import HomeSalesPage from './pages/HomeSalesPage.jsx';
+
+
 
 
 function App() {
@@ -28,10 +28,8 @@ function App() {
           <Route path="/" element={<LoginPages/>} />                                                   {/*Pagina de iniciar sesion*/}
           <Route path="/home-cajero" rol='Cajero' element={<HomeCashierPage/>} />                                   {/*pagina Inicial del cajero*/}
           <Route path="/home-admin"  rol='Administrador' element={<HomeAdministratorPage/>} />                              {/*Pagina Inicial del administrador*/}
-          <Route path="/home-venta" rol='Administrador' element={<HomeSalesPage />}/>
-          <Route path="/home-venta/registrar-venta" rol='Administrado' element={<RegisterSalepage/>} />                   {/*pagina de registrar una venta*/}
-          <Route path="/home-venta/historial-venta" rol='Administrador' element={<SalesHistoryPage/>} />                   {/* pagina para ver el historial de venta*/}
-          <Route path="/home-venta/detalle-venta" rol='Administrador' element={<SaleDetailPage/>} />      
+          <Route path="/registrar-venta" rol='Administrado' element={<RegisterSalepage/>} />                   {/*pagina de registrar una venta*/}
+          <Route path="/historial-venta" rol='Administrador' element={<SalesHistoryPage/>} />                   {/* pagina para ver el historial de venta*/}   
           <Route path="/menu" rol='Administrador' element={<MenuPage/>} />                                                 {/*pagina para listar menu*/}
           <Route path="/menu/registro"  rol='Administrador' element={<EditMenuPage/>} />                                              {/*pagina para crear el menu*/}
           <Route path="/provedores" rol='Administrador' element={<SuppliersPage/>} />                                      {/*pagina para listar un proveedor*/}

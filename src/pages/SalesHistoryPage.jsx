@@ -105,7 +105,7 @@ function SalesHistoryPage() {
                             </button>
                         </div>
                     </Link>
-                    <Link to='/home-venta'>
+                    <Link to='/home-admin'>
                         <div className='text-center my-3'>
                             <button className='btn-block'>
                                 salir

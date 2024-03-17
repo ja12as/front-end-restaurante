@@ -72,6 +72,22 @@ function EditMenuPage() {
         } catch (error) {
             console.error('Error al enviar los datos al formulario de menu', error);
         }
+        try {
+            const response = await query.post('/menu', formularioMenu, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                
+            },
+            
+            });
+            if (response.status !== 200) {
+            console.error('Error from backend:', response.status);
+            return;
+            }
+        } catch (error) {
+            console.error('Error sending data:', error);
+    }
     };
 
     const { idMenu } = useParams();
