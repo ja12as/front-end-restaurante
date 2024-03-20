@@ -17,16 +17,22 @@ function EditPropertyInventoriesPage() {
     const[usuarios, setUsuario] = useState([]);
 
     useEffect (() => {
-        const listarNumeroDocumentoUsuario = async () =>{
+        const listarNumeroDocumentoUsuario = async () => {
             try {
-                const   respuestaNumeroDocumentoUsuario = await query.get('/usuarios');
-                setUsuario(respuestaNumeroDocumentoUsuario.data);
+            const respuestaNumeroDocumentoUsuario = await query.get('/usuarios', {
+                headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+            setUsuario(respuestaNumeroDocumentoUsuario.data);
             } catch (error) {
-                console.error('Error al obtener los numeros de documentos de los empleados' , error);
-            }
-        }
+            console.error('Error:', error);
+            } 
+        };
         listarNumeroDocumentoUsuario();
     },[]);
+
     
     const [formularioInventario, setFormularioInventario] = useState({
         idInventarioInmueble:uuidv4(),

@@ -16,7 +16,7 @@ import { v4 as uuidv4 } from 'uuid';
 import query  from '../api/axios.js';
 
 function EditSuppliersPage() {
-
+    
     //creo una constante que me va guardar los errores que existan(campos-vacios,correo mal escrito etc)
     const [errorsProveedor, setErrorsProveedor] = useState({});
     const [formularioProveedor, setFormularioProveedor] = useState({

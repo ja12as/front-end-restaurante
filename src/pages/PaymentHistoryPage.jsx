@@ -78,7 +78,7 @@ function PaymentHistoryPage() {
                         <Column field='idPagoUsuario' header='Cod' sortable />
                         <Column field='fechaPago' header='AAAA-MM-DD-HORA' sortable />
                         <Column field='valorPagado' header='Valor Pagado' sortable />
-                        <Column field='descripcionTipoPago' header='Descripción' sortable />
+                        <Column field='descripcionPago' header='Descripción' sortable />
                         <Column field='numeroDocumento.nombreCompleto' header='Cajero' sortable />
                         <Column field='idMedioPago.descripcionTipoPago' header='Tipo de Pago' sortable />
                         <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />

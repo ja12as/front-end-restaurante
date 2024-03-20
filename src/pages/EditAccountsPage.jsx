@@ -23,7 +23,7 @@ function EditAccountsPage() {
                 setTiposDocumentos(response.data);
                 } catch (error) {
                 console.error('Error:', error);
-                }
+                } 
         };
 
         const listarRoles = async () => {

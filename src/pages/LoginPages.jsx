@@ -20,12 +20,13 @@ function LoginPages() {
 
     const verificarDocumento = async () => {
         try {
-            const { data } = await query.get(`/usuarios${documento}`);
+            const { data } = await query.get(`/usuarios/${documento}`);
     
             // Verifica si el rol del usuario es Administrador
             if (data.rolUsuario === 1) {
                 const { data: dataPreguntas } = await query.get('/preguntas');
                 setPreguntas(dataPreguntas);
+                setShowModal(true); // Mostrar el modal de preguntas de seguridad
             } else {
                 alert('Solo los administradores pueden cambiar su contraseña');
             }
@@ -33,6 +34,22 @@ function LoginPages() {
             console.error('Error:', error);
         }
     };
+
+    // const verificarRespuesta = async () => {
+    //     try {
+    //         const { data } = await query.get(`/respuesta-pregunta/${preguntas[pregunta].id}`);
+
+    //         if (data.respuesta === respuestaUsuario) {
+    //             // Lógica para permitir al usuario restablecer la contraseña
+    //             alert('Respuesta correcta. Puede restablecer su contraseña ahora.');
+    //         } else {
+    //             alert('La respuesta es incorrecta. Inténtelo de nuevo.');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error:', error);
+    //     }
+    // };
+
     
     const [showDocumentModal, setShowDocumentModal] = useState(true);
 
@@ -160,8 +177,8 @@ function LoginPages() {
                     </div>
                     <button type="submit">Ingresar</button>
                 </form>
-{/* 
-                <Modal show={showDocumentModal} onHide={handleDocumentModalClose}>
+
+                {/* <Modal show={showDocumentModal} onHide={handleDocumentModalClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Ingrese su número de documento</Modal.Title>
                     </Modal.Header>
@@ -171,7 +188,7 @@ function LoginPages() {
                     <Modal.Footer>
                         <button onClick={handleDocumentModalSubmit}>Aceptar</button>
                     </Modal.Footer>
-                </Modal> */}
+                </Modal>
 
         
                 <Modal show={pregunta > 0 && pregunta <= preguntas.length} onHide={handleModalClose}>
@@ -200,7 +217,7 @@ function LoginPages() {
                     <Modal.Footer>
                         <button onClick={handleModalSubmit}>Aceptar</button>
                     </Modal.Footer>
-                </Modal>
+                </Modal> */}
             </div>
         </div>
     );
