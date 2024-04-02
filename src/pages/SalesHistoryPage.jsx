@@ -15,8 +15,6 @@ import { Link } from 'react-router-dom';
 import { DataTable } from 'primereact/datatable';
 import { Column } from "primereact/column";
 import { FilterMatchMode } from 'primereact/api';
-import updateIcon from '../assets/menu.png'; 
-import editIcon  from '../assets/editar.png';
 import { InputText } from 'primereact/inputtext';
 import '../style/Listar.css'
 
@@ -38,28 +36,13 @@ function SalesHistoryPage() {
                 });
                 setData(response.data);
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Error al traer la venta:', error);
             }
             };
         
         fetchData(); 
     }, []);
 
-    const accionesBodyTemplate = () => {
-        return (
-            <Link to='/registrar-venta'>
-                <img src={updateIcon} alt='Actualizar' width='20' height='20' />
-            </Link>
-        );
-    };
-    const editarBodyTemplate = (rowData) => {
-        return (
-            <Link to={`/menu/registro/${rowData.idMenu}`}>
-                <img src={editIcon} alt='Editar' width='20' height='20' />
-            </Link>
-        );
-    };
-    
     return (
         <div className='container'>
             <div className='wrapper bg-white' style={{ maxWidth: "1300px" }}>
@@ -86,8 +69,6 @@ function SalesHistoryPage() {
                         <Column field='valorRecibido' header='Valor Rec' sortable />
                         <Column field='valorCambio' header='Valor Cam' sortable />
                         <Column field='idMedioPago.descripcionTipoPago' header='Tipo Pag' sortable />
-                        <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
-                        <Column field='editar' header='Editar' body={editarBodyTemplate} />
                     </DataTable>
                 </div>
                 <div className='boton-historia'>
@@ -98,7 +79,7 @@ function SalesHistoryPage() {
                             </button>
                         </div>
                     </Link>
-                    <Link to='/reporte'>
+                    <Link to='/reporte-venta'>
                         <div className='text-center my-3'>
                             <button className='btn-block'>
                                 Generar Reporte
@@ -117,7 +98,5 @@ function SalesHistoryPage() {
         </div>
     );
 };
-
-
 
 export default SalesHistoryPage

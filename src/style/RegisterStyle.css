@@ -27,7 +27,7 @@
 }
 
 .form-group {
-    margin-bottom: 30px; /* Incrementa el margen entre grupos de etiquetas y entradas */
+    margin-bottom: 30px; 
 }
 
 .form-group label {
@@ -78,3 +78,45 @@
 .boton:hover {
     background-color: #FFDE59;
 }
+
+.botones-ventas{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.input-total{
+    display: flex;
+    margin: 20px 0px 20px 500px;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: row;
+}
+.error-message {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 1px;
+}
+
+/* Estilo para campos con errores */
+input.error, select.error {
+    border: 1px solid red;
+}
+
+/* Estilo para campos obligatorios */
+.required-field {
+    font-weight: bold;
+}
+
+th  {
+    width: 100px; /* Ancho específico para los elementos th */
+    padding: 8px; 
+    text-align: center; 
+}
+ 
+td  {
+    width: 100px; /* Ancho específico para los elementos th */
+    padding: 2px; 
+    text-align: center; 
+}
+ 

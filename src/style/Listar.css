@@ -8,7 +8,7 @@
 
 .wrapper {
 
-    padding: 40px;
+    padding: 30px;
     border: 2px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -42,7 +42,7 @@
 }
 
 .dtable{
-    height: 300px;
+    height: 330px;
 }
 
 .btn {
@@ -55,7 +55,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 5px;
     margin-left: 26%;
 }
 
@@ -74,7 +74,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 5px;
     margin-left: 18%;
 }
 .btn-block:hover {

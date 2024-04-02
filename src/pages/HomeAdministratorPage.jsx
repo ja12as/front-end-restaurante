@@ -1,7 +1,6 @@
 
 import { Link } from "react-router-dom";
 import '../style/home.css';
-import usuario1 from '../assets/usuario1.png';
 import imgRegistrocompra from '../assets/registarCompras.png';
 import imgHistorialventa from '../assets/historialFactura.png';
 import imgMenu from '../assets/menu1.png';
@@ -9,9 +8,31 @@ import imgPerfil from '../assets/perfil2.png';
 import imgInventario from '../assets/inventario.png'
 import imgReciboPago from '../assets/reciboPago.png';
 import imgProveedor from '../assets/proveedor.png';
+import {useEffect ,useState } from "react";
+import query  from '../api/axios.js';
 
 
 function HomeAdministratorPage() {
+    const [usuario, setUsuario] = useState({});
+    const numeroDocumento = localStorage.getItem('numeroDocumento'); // Asume que guardas el id del usuario en el localStorage al iniciar sesión
+
+useEffect(() => {
+    const listarImgyNombre = async () => {
+        try {
+            const response = await query.get(`/usuarios/${numeroDocumento}`, { // Nota el cambio aquí
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            });
+            setUsuario(response.data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        };
+        listarImgyNombre();
+    }, []);
+    
     const cerrarSesion  = () =>{
         localStorage.removeItem("token");
         localStorage.removeItem("rol");
@@ -21,8 +42,8 @@ function HomeAdministratorPage() {
         <div className="container">
             <div className="header">
                 <div className="perfil-empleado">
-                <img src={usuario1} alt="img-empleado" />
-                <p>Roboto Condensed</p>
+                    {/* {usuario && <img src={usuario.numeroDocumento.rutaFoto} alt="img-empleado" />} */}
+                    {usuario && <p>Hola {usuario.nombreCompleto}</p>}
                 </div>
             </div>
             <div className="container-menu">
@@ -33,7 +54,7 @@ function HomeAdministratorPage() {
                             <div className="img-wrapper">
                                 <img src={imgRegistrocompra} alt="Registro-venta" />
                             </div>
-                            <p>Venta</p>
+                            <p>Registrar venta</p>
                         </div>
                     </Link>
                     <Link to='/historial-venta' className="link-sin-subrayado">
@@ -41,7 +62,7 @@ function HomeAdministratorPage() {
                             <div className="img-wrapper">
                                 <img src={imgHistorialventa} alt="Registro-venta" />
                             </div>
-                            <p>Venta</p>
+                            <p>Historial de Venta</p>
                         </div>
                     </Link>
                     <Link to='/menu'  className="link-sin-subrayado">

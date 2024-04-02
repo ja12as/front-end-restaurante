@@ -2,7 +2,7 @@
 Valor pagado 
 Medio de pago 
 A quien se le pago 
-Observación  */
+Observación  */ 
 
 
 import { Link } from 'react-router-dom';
@@ -19,22 +19,32 @@ function RegisterPaymentPage() {
 
 
     useEffect(()=>{
-        const listarMediosPagos = async() => {
+        const listarMediosPagos = async () => {
             try {
-                const respuestaMedioPago = await query.get('/medios-pagos');
-                setMediosPagos(respuestaMedioPago.data);
+            const respuestaMedioPago = await query.get('/medios-pagos', {
+                headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+            setMediosPagos(respuestaMedioPago.data);
             } catch (error) {
-                console.error('error al obtener los medios de pagos')
-            }
+            console.error('Error:', error);
+            } 
         };
-
-        const listarEmpleados = async ()=> {
+        
+        const listarEmpleados = async () => {
             try {
-                const respuestaEmpleado = await query.get('/usuarios');
-                setEmpleados(respuestaEmpleado.data);
+            const respuestaEmpleado = await query.get('/usuarios', {
+                headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+            setEmpleados(respuestaEmpleado.data);
             } catch (error) {
-                console.error('error al obtener los nombre de los empleados')
-            }
+            console.error('Error:', error);
+            } 
         };
         listarMediosPagos();
         listarEmpleados();
