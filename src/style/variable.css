@@ -1,0 +1,22 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+/* @import url('../assets/Helvetica-BoldOblique.ttf'); */
+
+:root {
+    /** color */
+
+    --white: #ffffff;
+    --black: #000000;
+    --gray: #737373;
+    --green: #00ff1e;
+    --yellow: #FFDE59;
+
+    /**font*/
+
+    /* --font-family-title:"Helvetica-BoldOblique"; */
+    --font-family-subtitle: "Roboto Condensed";
+    
+    
+
+
+}

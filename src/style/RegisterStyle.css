@@ -1,0 +1,122 @@
+
+.titulo{
+    font-family: airelon;
+    font-size: 31px;
+    text-align: center;
+    padding: 20px;
+}
+
+.div-padre {
+    text-align: center;
+    padding: 20px;
+}
+
+.formulario {
+    background-color: lightgray;
+    padding: 20px;
+    border-radius: 10px;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.div-col-1,
+.div-col-2 {
+    display: inline-block;
+    vertical-align: top;
+    width: 45%;
+}
+
+.form-group {
+    margin-bottom: 30px; 
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    padding: 0 20px;
+    font-size: 18px;
+    text-align:left;
+}
+
+.form-group input {
+    width: calc(100% - 60px); /* Ajusta el ancho de los inputs descontando el padding */
+    padding: 15px; /* Añade un padding de 15px a los inputs */
+    margin-right: 20px; /* Añade margen a la derecha de los inputs */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
+}
+.form-group select {
+    width: calc(100% - 60px); /* Ajusta el ancho de los inputs descontando el padding */
+    padding: 15px; /* Añade un padding de 15px a los inputs */
+    margin-right: 30px; /* Añade margen a la derecha de los inputs */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
+}
+
+.botones{
+    display: flex;
+    align-items: center;
+}
+.boton {
+    width: 250px; /* Establece el ancho del botón a 350px */
+    height: 50px; /* Establece la altura del botón a 90px */
+    padding: 15px; /* Añade un padding de 15px al botón */
+    border-radius: 5px;
+    margin: 20px 0px 20px 250px;
+
+    border: none;
+    background-color: #00ff1e;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+
+.boton:hover {
+    background-color: #FFDE59;
+}
+
+.botones-ventas{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.input-total{
+    display: flex;
+    margin: 20px 0px 20px 500px;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: row;
+}
+.error-message {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 1px;
+}
+
+/* Estilo para campos con errores */
+input.error, select.error {
+    border: 1px solid red;
+}
+
+/* Estilo para campos obligatorios */
+.required-field {
+    font-weight: bold;
+}
+
+th  {
+    width: 100px; /* Ancho específico para los elementos th */
+    padding: 8px; 
+    text-align: center; 
+}
+ 
+td  {
+    width: 100px; /* Ancho específico para los elementos th */
+    padding: 2px; 
+    text-align: center; 
+}
+ 

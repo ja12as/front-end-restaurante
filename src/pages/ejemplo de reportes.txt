@@ -1,0 +1,122 @@
+Funciones para generar PDF y Excel (mismo archivo App.js)
+En lugar de importar funciones desde otros archivos, podemos definirlas dentro del mismo App.js.
+
+Función para generar PDF:
+
+const generatePDF = async (filtros, pagos) => {
+  // Importaciones necesarias para generar PDF
+  const { Document, Page, Image, Table } from 'react-pdf';
+
+  // Generar contenido de la primera página
+  const header = {
+    logo: 'https://www.tuempresa.com/logo.png',
+    titulo: 'Reporte de ventas',
+    fechas: `Desde ${filtros.fechaInicial} hasta ${filtros.fechaFinal}`,
+    empresa: 'Tu empresa',
+    usuario: pagos.length === 0 ? 'Todos' : pagos[0].usuario.nombre,
+    tipoPago: pagos.length === 0 ? 'Todos' : pagos[0].tipoPago.nombre,
+  };
+
+  const primeraPagina = (
+    <Document>
+      <Page>
+        <Header>
+          <Image src={header.logo} width={100} />
+          <h1>{header.titulo}</h1>
+          <p>{header.fechas}</p>
+        </Header>
+        <p>Empresa: {header.empresa}</p>
+        <p>Usuario: {header.usuario}</p>
+        <p>Tipo de pago: {header.tipoPago}</p>
+        <Table>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Usuario</th>
+              <th>Tipo de pago</th>
+              <th>Monto</th>
+            </tr>
+          </thead>
+          <tbody>
+            {pagos.map((pago) => (
+              <tr>
+                <td>{pago.fecha}</td>
+                <td>{pago.usuario.nombre}</td>
+                <td>{pago.tipoPago.nombre}</td>
+                <td>{pago.monto}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Page>
+    </Document>
+  );
+
+  // Generar contenido de la segunda página en adelante
+  const segundaPagina = pagos.map((pago) => (
+    <Page>
+      <Table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Usuario</th>
+            <th>Tipo de pago</th>
+            <th>Monto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{pago.fecha}</td>
+            <td>{pago.usuario.nombre}</td>
+            <td>{pago.tipoPago.nombre}</td>
+            <td>{pago.monto}</td>
+          </tr>
+        </tbody>
+      </Table>
+    </Page>
+  ));
+
+  // Combinar las páginas y generar el PDF
+  const pdf = generatePDF([primeraPagina, ...segundaPagina]);
+
+  // Descargar el PDF
+  pdf.save('reporte-ventas.pdf');
+};
+Función para generar Excel:
+
+const generateExcel = async (filtros, pagos) => {
+  // Importaciones necesarias para generar Excel
+  const XLSX = require('xlsx');
+
+  // Generar contenido de la hoja de cálculo
+  const data = [
+    ['Reporte de ventas'],
+    [`Desde ${filtros.fechaInicial} hasta ${filtros.fechaFinal}`],
+    ['Tu empresa'],
+    [pagos.length === 0 ? 'Todos' : pagos[0].usuario.nombre],
+    [pagos.length === 0 ? 'Todos' : pagos[0].tipoPago.nombre],
+    ['Fecha', 'Usuario', 'Tipo de pago', 'Monto'],
+    ...pagos.map((pago) => [pago.fecha, pago.usuario.nombre, pago.tipoPago.nombre, pago.monto]),
+  ];
+
+  const worksheet = XLSX.utils.aoa_to_sheet(data);
+  const workbook = XLSX.utils.book_new();
+
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Reporte');
+
+  // Descargar el archivo Excel
+  XLSX.writeFile(workbook, 'reporte-ventas.xlsx');
+};
+Integración en el formulario:
+
+Dentro de la función onSubmit, modifica el código para llamar a las funciones generatePDF y generateExcel después de obtener los pagos filtrados:
+
+const onSubmit = async (data) => {
+  // ...
+  const pagosFiltrados = await getPagos(filtros.tipoPago, filtros.usuario, filtros.fechaInicial, filtros.fechaFinal);
+
+  // Mostrar los datos
+  console.log(pagosFiltrados);
+
+  // Generar PDF y Excel
+  generatePDF(
