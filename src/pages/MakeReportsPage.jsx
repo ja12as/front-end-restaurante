@@ -17,7 +17,6 @@ function MakeReportsPage() {
     const [fechaInicio, setFechaInicio] = useState('');
     const [fechaFinal, setFechaFinal] = useState('');
     const [data, setData] = useState([]);
-    const [redirigirA, setRedirigirA] = useState('/historial-venta');
     const [error, setError] = useState('');
 
 // Styles for the Excel sheet
@@ -54,6 +53,20 @@ useEffect(() => {
         console.error('Error:', error);
         } 
     };
+
+    const listarPagos = async () => {
+        try {
+        const respuestaMedioPago = await query.get('/pago-usuario', {
+            headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        setMediosPagos(respuestaMedioPago.data);
+        } catch (error) {
+        console.error('Error:', error);
+        } 
+    };
     
     const listarUsuario = async () => {
         try {
@@ -79,6 +92,7 @@ useEffect(() => {
     };
     listarMediosPagos();
     listarUsuario();
+    listarPagos();
 }, [usuarioSeleccionado]);
 
 useEffect(() => {
@@ -106,42 +120,33 @@ useEffect(() => {
             setError('Error al recuperar datos.');
         }
     };
-
     fetchData();
 }, [nombre, fechaInicio, fechaFinal, medioPagoSeleccionado]);
 
-// codigo para realizar el reporte en excel
 const downloadExcel = () => {
     if (data.length === 0) {
-        console.error('No hay datos para exportar a Excel.');
-        alert('No se encontraron datos para los filtros seleccionados.');
+        console.error('No hay datos disponibles para exportar a Excel.');
+        alert('No hay datos disponibles para exportar a Excel.');
         return;
     }
-
     const workbook = XLSX.utils.book_new();
-
-    console.log("Datos filtrados:", data);
     const worksheetData = data.map(pago => [
-        { t: pago.numeroDocumento.numeroDocumento, s: combinedHeaderStyle.data },
-        { t: pago.numeroDocumento.nombreCompleto, s: combinedHeaderStyle.data },
-        { t: pago.idMedioPago.descripcionTipoPago, s: combinedHeaderStyle.data },
-        { t: pago.valorPagado, s: combinedHeaderStyle.data },
-        { t: new Date(pago.fechaPago).toLocaleDateString(), s: combinedHeaderStyle.data },
+        pago.numeroDocumento.numeroDocumento,
+        pago.numeroDocumento.nombreCompleto,
+        pago.idMedioPago.descripcionTipoPago,
+        pago.valorPagado,
+        new Date(pago.fechaPago).toLocaleDateString(),
     ]);
-        const header = [
-        { t: 'Número de documento',s: combinedHeaderStyle }, // Manual formatting example
-        { t: 'Nombre completo', s: combinedHeaderStyle  },
-        { t: 'Tipo de pago',s: combinedHeaderStyle  },
-        { t: 'Valor pagado', s: combinedHeaderStyle  },
-        { t: 'Fecha de pago', s: combinedHeaderStyle  },
-        // ... include other headers
-];
-
+    const header = [
+        { t: 'Número de documento', s: combinedHeaderStyle },
+        { t: 'Nombre completo', s: combinedHeaderStyle },
+        { t: 'Tipo de pago', s: combinedHeaderStyle },
+        { t: 'Valor pagado', s: combinedHeaderStyle },
+        { t: 'Fecha de pago', s: combinedHeaderStyle },
+    ];
     worksheetData.unshift(header);
     const worksheet = XLSX.utils.aoa_to_sheet(worksheetData, { cellStyles: true });
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Pagos');
-
-    // Generate Excel binary file
     const file = XLSX.write(workbook, { type: 'binary' });
     const blob = new Blob([s2ab(file)], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     const url = window.URL.createObjectURL(blob);
@@ -149,63 +154,58 @@ const downloadExcel = () => {
     link.href = url;
     link.download = 'pagos.xlsx';
     link.click();
-    };
-    
-        // Convierte el contenido de la cadena en una matriz de bytes
-    const s2ab = s => {
-        const buf = new ArrayBuffer(s.length);
-        const view = new Uint8Array(buf);
-        for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff;
-        return buf;
-    };
-    
+};
 
+const s2ab = s => {
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff;
+    return buf;
+};
+const exportToPDF = () => {
+    if (!nombre || !fechaInicio || !fechaFinal || !medioPagoSeleccionado) {
+        console.error('Todos los filtros deben estar seleccionados.');
+        alert('Por favor seleccione todos los filtros.');
+        return;
+    }
+    const doc = new jsPDF();
+    doc.text('Documento', 10, 5);
+    doc.text('Nombre', 50, 5);
+    doc.text('Tipo de pago', 90, 5);
+    doc.text('Valor pagado', 130, 5);
+    doc.text('Fecha de pago', 170, 5);
+    data.forEach((pago, index) => {
+        const y = 15 + (index + 1) * 10;
+        doc.text(pago.numeroDocumento.numeroDocumento, 10, y);
+        doc.text(pago.numeroDocumento.nombreCompleto, 50, y);
+        doc.text(pago.idMedioPago.descripcionTipoPago, 50, y);
+        doc.text(pago.valorPagado, 90, y);
+        doc.text(new Date(pago.fechaPago).toLocaleDateString(), 130, y);
+        doc.text('(Actions in PDF not supported)', 170, y);
+    });
+    doc.save('Pago.pdf');
+};
 
-    // codigo que realiza el reporte en PDF
-    const exportToPDF = () => {
-        const doc = new jsPDF();
-    
-        // Add a table header with column names
-        doc.text('Documento', 10, 5);
-        doc.text('Nombre', 50, 5);
-        doc.text('Tipo de pago', 90, 5);
-        doc.text('Valor pagado', 130, 5);
-        doc.text('Fecha de pago', 170, 5);
-    
-        // Iterate through domicilios data and add rows to the PDF
-        pagos.forEach((pago, index) => {
-            const y = 15 + (index + 1) * 10; // Adjust spacing as needed
-            doc.text(pago.numeroDocumento.numeroDocumento, 10, y);
-            doc.text(pago.numeroDocumento.nombreCompleto, 50, y);
-            doc.text(pago.idMedioPago.descripcionTipoPago, 50, y);
-            doc.text(pago.valorPagado, 90, y);
-            doc.text(new Date(pago.fechaPago).toLocaleDateString(), 130, y);
-            // Action column content would be more complex for editing/deletion in a PDF
-            doc.text('(Actions in PDF not supported)', 170, y);
-        });
-        // Save the PDF document
-        doc.save('Pago.pdf');
-    };
     return (
         <div className='div-padre'>
-            <h1>Generar Reportes</h1>
+            <h1>Generar reportes de pagos</h1>
             <form className='formulario'>
                 <div className='div-col-1'>
                     <div className='form-group'>
                         <label>Nombre del empleado</label>
                         <select value={nombre} onChange={(e) => setNombre(e.target.value)} required>
-                            {usuarios.map((usuario) => (
-                                <option key={usuario.numeroDocumento} value={usuario.numeroDocumento}>{usuario.nombreCompleto}</option>
-                            ))}
+                        {usuarios.map((usuario) => (
+                            <option key={usuario.numeroDocumento} value={usuario.numeroDocumento}>{usuario.nombreCompleto}</option>
+                        ))}
                         </select>
                     </div>
                     <div className='form-group'>
                         <label>Medio de pago</label>
                         <select value={medioPagoSeleccionado} onChange={(e) => setMedioPagoSeleccionado(e.target.value)} required>
-                            <option value="">Todos</option>
-                            {mediosPagos.map(tipo => (
-                                <option key={tipo.idMedioPago} value={tipo.idMedioPago}>{tipo.descripcionTipoPago}</option>
-                            ))}
+                        <option value="">Todos</option>
+                        {mediosPagos.map(tipo => (
+                            <option key={tipo.idMedioPago} value={tipo.idMedioPago}>{tipo.descripcionTipoPago}</option>
+                        ))}
                         </select>
                     </div>
                     <div className='form-group'>
@@ -220,15 +220,13 @@ const downloadExcel = () => {
                 <div className="botones">
                     <button type='button' className='boton 1' onClick={downloadExcel}>Generar Excel</button>
                     <button type='button' className='boton 1' onClick={exportToPDF}>Generar PDF</button>
-                    <Link to={redirigirA}>
+                    <Link to={'/pagos/historial-pago'}>
                         <div className="img-medio-admin">
-                            <button type='button' className='boton 2' onClick={() => setRedirigirA(redirigirA === '/historial-venta' ? '/pagos/historial-pago' : '/historial-venta')}>Salir</button>
+                            <button type='button' className='boton 2'>Salir</button>
                         </div>
                     </Link>
                 </div>
             </form>
-    
-            {data.length === 0 && <div className="error">No hay datos para el reporte con los filtros seleccionados.</div>}
         </div>
     );
     

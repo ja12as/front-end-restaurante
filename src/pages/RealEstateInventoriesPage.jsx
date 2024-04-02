@@ -9,13 +9,12 @@ import { Link } from 'react-router-dom';
 import { DataTable } from 'primereact/datatable';
 import { Column } from "primereact/column";
 import { FilterMatchMode } from 'primereact/api';
-import updateIcon from '../assets/menu.png'; 
 import editIcon  from '../assets/editar.png';
 import { InputText } from 'primereact/inputtext';
 import '../style/Listar.css'
 
-
 function RealEstateInventoriesPage() {
+
     const [filters, setFilters] = useState({
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     });
@@ -38,17 +37,77 @@ function RealEstateInventoriesPage() {
         
         fetchData(); 
     }, []);
-    const accionesBodyTemplate = () => {
+    
+    
+    const cambiarEstado = async (idProveedor) => {
+        try {
+            const response = await query.get(`/proveedores/cambiar-estado/${idProveedor}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+            const estado = response.data.idEstado;
+            const nuevoEstado = estado !== 1;
+            await query.put(`/proveedores/cambiar-estado/${idProveedor}/${nuevoEstado}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+    
+            // Aquí actualizamos los datos después de cambiar el estado
+            const updatedData = await query.get('/proveedores', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+            setData(updatedData.data); // Actualizamos los datos en el estado
+        } catch (error) {
+            console.error('Error al cambiar el estado:', error);
+        }
+    };
+    
+    const AccionesBodyTemplate = ({ idProveedor }) => {
+        const [estadoActivo, setEstadoActivo] = useState(false);
+    
+        useEffect(() => {
+            const estadoMenu = async () => {
+                try {
+                    const response = await query.get(`/proveedores/cambiar-estado/${idProveedor}`, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        },
+                    });
+                    const estado = response.data.idEstado;
+                    setEstadoActivo(estado === 1);
+                } catch (error) {
+                    console.error('Error al obtener el estado:', error);
+                }
+            };
+    
+            estadoMenu();
+        }, [idProveedor]);
+    
+        const handleCambiarEstado = async () => {
+            await cambiarEstado(idProveedor);
+            setEstadoActivo((estado) => !estado);
+        };
+    
         return (
-            <Link to='/inventario/registro'>
-                <img src={updateIcon} alt='Actualizar' width='20' height='20' />
-            </Link>
+            <span style={{ color: estadoActivo ? 'green' : 'red' }}>
+                {estadoActivo ? 'ON' : 'OFF'}
+                <button onClick={handleCambiarEstado}>Estado</button>
+            </span>
         );
     };
+    
     const editarBodyTemplate = (rowData) => {
         return (
-            <Link to={`/menu/registro/${rowData.idMenu}`}>
-                <img src={editIcon} alt='Editar' width='20' height='20' />
+            <Link to={`/inventario/registro/${rowData.idInventarioInmueble}`}>
+            <img src={editIcon} alt="Editar" width="20" height="20" />
             </Link>
         );
     };
@@ -71,14 +130,16 @@ function RealEstateInventoriesPage() {
                     </div>
                 </div>
                 <div className='dtable'>
-                    <DataTable value={data} sortMode='multiple' filters={filters} paginator rows={10} totalRecords={data.length}>
+                    <DataTable value={data} sortMode='multiple' filters={filters} paginator rows={15} totalRecords={data.length}  scrollable scrollHeight="200px">
                         <Column field='idInventarioInmueble' header='Cod' sortable />
                         <Column field='nombreInmueble' header='Nombre' sortable />
                         <Column field='descripcionInmueble' header='Descripción' sortable />
                         <Column field='cantidadInmueble' header='Cantidad' sortable />
                         <Column field='fechaRegistroInmueble' header='Fecha' sortable />
                         <Column field='numeroDocumento.nombreCompleto' header='usuario' sortable />
-                        <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
+                        <Column header='ON/OFF' body={(rowData) => (
+                            <AccionesBodyTemplate idProveedor={rowData.idProveedor} />
+                        )} />
                         <Column field='editar' header='Editar' body={editarBodyTemplate} />
                     </DataTable>
                 </div>

@@ -13,25 +13,25 @@ import query  from '../api/axios.js';
 
 
 function HomeAdministratorPage() {
-    const [usuario, setUsuario] = useState([]);
+    const [usuario, setUsuario] = useState({});
+    const numeroDocumento = localStorage.getItem('numeroDocumento'); // Asume que guardas el id del usuario en el localStorage al iniciar sesión
 
-    useEffect(() => {
-        const listarImgyNombre = async () => {
-            try {
-                const response = await query.get('/usuarios', {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                },
-                });
-                setUsuario(response.data);
-            } catch (error) {
-                console.error('Error:', error);
-            }
+useEffect(() => {
+    const listarImgyNombre = async () => {
+        try {
+            const response = await query.get(`/usuarios/${numeroDocumento}`, { // Nota el cambio aquí
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            });
+            setUsuario(response.data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
         };
         listarImgyNombre();
     }, []);
-
     
     const cerrarSesion  = () =>{
         localStorage.removeItem("token");
@@ -42,8 +42,8 @@ function HomeAdministratorPage() {
         <div className="container">
             <div className="header">
                 <div className="perfil-empleado">
-                    <img src={usuario.rutaFoto} alt="img-empleado" />
-                    <p>Hola {usuario.nombreCompleto}</p>
+                    {/* {usuario && <img src={usuario.numeroDocumento.rutaFoto} alt="img-empleado" />} */}
+                    {usuario && <p>Hola {usuario.nombreCompleto}</p>}
                 </div>
             </div>
             <div className="container-menu">

@@ -1,12 +1,32 @@
 
 import { Link } from "react-router-dom";
-import usuario1 from '../assets/usuario6.png';
 import imgRegistrocompra from '../assets/registarCompras.png';
 import imgHistorialFactura from '../assets/historialFactura.png';
+import {useEffect ,useState } from "react";
 import '../style/home.css'
+import query  from '../api/axios.js';
 function HomeCashierPage() {
+    const [usuario, setUsuario] = useState({});
+    const numeroDocumento = localStorage.getItem('numeroDocumento'); // Asume que guardas el id del usuario en el localStorage al iniciar sesión
 
-const cerrarSesion  = () =>{
+useEffect(() => {
+    const listarImgyNombre = async () => {
+        try {
+            const response = await query.get(`/usuarios/${numeroDocumento}`, { // Nota el cambio aquí
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            });
+            setUsuario(response.data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        };
+        listarImgyNombre();
+    }, []);
+
+    const cerrarSesion  = () =>{
     localStorage.removeItem("token");
     localStorage.removeItem("rol");
 }
@@ -15,8 +35,8 @@ const cerrarSesion  = () =>{
         <div className="container2">
             <div className="header">
                 <div className="perfil-empleado">
-                <img src={usuario1} alt="img-empleado" />
-                <p>hola-nom-empleado</p>
+                    {usuario && <img src={usuario.rutaFoto} alt="img-empleado" />}
+                    {usuario && <p>Hola {usuario.nombreCompleto}</p>}
                 </div>
             </div>
             <div className="container-menu2">    

@@ -1,23 +1,14 @@
-/**Historial de pagos 
-Dia, fecha, mes  
-Hora 
-Valor pagado 
-Observación 
-Medio de pago 
-A quien se le pago  */
-
 import React, {useEffect, useState } from 'react';
 import query  from '../api/axios.js';
 import { Link } from 'react-router-dom';
 import { DataTable } from 'primereact/datatable';
 import { Column } from "primereact/column";
 import { FilterMatchMode } from 'primereact/api';
-import updateIcon from '../assets/menu.png'; 
-import editIcon  from '../assets/editar.png';
 import { InputText } from 'primereact/inputtext';
 import '../style/Listar.css'
 
 function PaymentHistoryPage() {
+
     const [filters, setFilters] = useState({
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     });
@@ -35,27 +26,13 @@ function PaymentHistoryPage() {
                 });
                 setData(response.data);
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Error al  obtener las ventas:', error);
             }
             };
         
         fetchData();
     }, []);
-    const accionesBodyTemplate = () => {
-        return (
-            <Link to='/pagos/realizar-pago'>
-                <img src={updateIcon} alt='Actualizar' width='20' height='20' />
-            </Link>
-        );
-    };
-    const editarBodyTemplate = (rowData) => {
-        return (
-            <Link to={`/menu/registro/${rowData.idMenu}`}>
-                <img src={editIcon} alt='Editar' width='20' height='20' />
-            </Link>
-        );
-    };
-    
+
     return (
         <div className='container'>
             <div className='wrapper bg-white' style={{ maxWidth: "1300px" }}>
@@ -81,8 +58,6 @@ function PaymentHistoryPage() {
                         <Column field='descripcionPago' header='Descripción' sortable />
                         <Column field='numeroDocumento.nombreCompleto' header='Cajero' sortable />
                         <Column field='idMedioPago.descripcionTipoPago' header='Tipo de Pago' sortable />
-                        <Column field='acciones' header='Acciones' body={accionesBodyTemplate} />
-                        <Column field='editar' header='Editar' body={editarBodyTemplate} />
                     </DataTable>
                 </div>
                 <div className='boton-historia'>
@@ -93,7 +68,7 @@ function PaymentHistoryPage() {
                             </button>
                         </div>
                     </Link>
-                    <Link to='/reporte'>
+                    <Link to='/reporte-Pago'>
                         <div className='text-center my-3'>
                             <button className='btn-block'>
                                 Generar Reporte
